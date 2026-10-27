@@ -18,13 +18,22 @@ Una app web gratuita (PWA instalable) para organizar deudas personales en Colomb
 | `css/estilos.css` | Todo el diseño. Colores en variables de `:root`, con modo oscuro. |
 | `js/datos.js` | Datos que se actualizan a mano: tasa de usura (`USURA`), tasas para compra de cartera (`OFERTAS`), gastos del asistente y pasos iniciales. |
 | `js/calculos.js` | Cálculos financieros puros: `rm()` (tasa EA a mensual) y `simulate()` (plan mes a mes). |
-| `js/app.js` | Pantallas e interacción. Usa lo de `datos.js` y `calculos.js`. |
+| `js/perfiles.js` | Perfiles en el mismo dispositivo (`PERFILES`) y tema guardado. Se carga en el `<head>`. |
+| `js/app.js` | Pantallas e interacción. Usa lo de `datos.js` y `calculos.js`. Expone `window.PLD` (estado, ayudantes y `PLD.hooks`). |
+| `js/interfaz.js` | Experiencia de uso: tema, menú ⋯, barra inferior y "Más" en celular, hojas inferiores, deslizar entre pestañas, vibración, celebración. |
+| `js/funciones.js` | Recordatorios (calendario .ics y avisos), simulador "¿y si…?", prima, historial real, logros y racha, perfiles, respaldo. Cada bloque agrega su `render` a `PLD.hooks`. |
 | `js/pwa.js` | Registro del service worker y botón "Instalar app". |
 | `sw.js` | Service worker: guarda la app para usarla sin internet. |
 | `manifest.webmanifest` + `iconos/` | Nombre, colores e íconos de la app instalada. |
 | `respaldo/` | Copias anteriores. No se publican como parte de la app; no las edites. |
 
-Los scripts se cargan en este orden y no debe cambiar: `datos.js`, `calculos.js`, `app.js`, `pwa.js`.
+Los scripts se cargan en este orden y no debe cambiar: `perfiles.js` (en el `<head>`), luego `datos.js`, `calculos.js`, `app.js`, `interfaz.js`, `funciones.js`, `pwa.js`.
+
+Para agregar una función nueva: escríbela en `js/funciones.js` usando `PLD` y registra su render con `PLD.hooks.push(miRender)`. Los eventos `pld:tab`, `pld:celebrar` y `pld:respaldo` conectan las partes.
+
+Datos por perfil: el perfil `principal` usa la clave `plan-libre-de-deudas-v1`; los demás `plan-libre-de-deudas-v1:<id>`. Usa siempre `PERFILES.clave()`, nunca la clave escrita a mano.
+
+Celular (≤760 px): la barra de pestañas va abajo con 4 pestañas y "Más"; las pestañas con clase `extra` aparecen en la hoja "Más". Las ventanas con clase `wiz sheet` suben desde abajo. Las tablas dentro de `.tablebox` se convierten en tarjetas automáticamente.
 
 ## Reglas al cambiar código
 

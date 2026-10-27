@@ -1,7 +1,7 @@
 /* Plan Libre de Deudas: service worker (funcionamiento sin internet).
    IMPORTANTE: cada vez que publiques un cambio en cualquier archivo, sube VERSION (ej. 'v2' -> 'v3').
    Así los celulares que ya instalaron la app descargan la versión nueva. */
-const VERSION='v1';
+const VERSION='v2';
 const CACHE='pld-'+VERSION;
 const RUNTIME='pld-externos';
 
@@ -12,7 +12,10 @@ const APP=[
   'css/estilos.css',
   'js/datos.js',
   'js/calculos.js',
+  'js/perfiles.js',
   'js/app.js',
+  'js/interfaz.js',
+  'js/funciones.js',
   'js/pwa.js',
   'manifest.webmanifest',
   'iconos/icono.svg',

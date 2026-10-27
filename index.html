@@ -24,6 +24,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap">
 <link rel="stylesheet" href="css/estilos.css">
+<!-- Perfil y tema antes de pintar la página (evita parpadeo) -->
+<script src="js/perfiles.js"></script>
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -47,6 +49,16 @@
   <symbol id="i-bell" viewBox="0 0 24 24"><path d="M10.27 21a2 2 0 0 0 3.46 0"/><path d="M3.26 15.33A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.67C19.41 13.96 18 12.5 18 8A6 6 0 0 0 6 8c0 4.5-1.41 5.96-2.74 7.33"/></symbol>
 <symbol id="i-bank" viewBox="0 0 24 24"><path d="M10 18v-7"/><path d="M11.12 2.198a2 2 0 0 1 1.76.006l7.866 3.847c.476.233.31.949-.22.949H3.474c-.53 0-.695-.716-.22-.949z"/><path d="M14 18v-7"/><path d="M18 18v-7"/><path d="M3 22h18"/><path d="M6 18v-7"/></symbol>
   <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></symbol>
+  <symbol id="i-auto" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3v18"/><path d="M12 3a9 9 0 0 1 0 18" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-more" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.4"/><circle cx="12" cy="12" r="1.4"/><circle cx="19" cy="12" r="1.4"/></symbol>
+  <symbol id="i-grid" viewBox="0 0 24 24"><rect width="7" height="7" x="3" y="3" rx="1.5"/><rect width="7" height="7" x="14" y="3" rx="1.5"/><rect width="7" height="7" x="3" y="14" rx="1.5"/><rect width="7" height="7" x="14" y="14" rx="1.5"/></symbol>
+  <symbol id="i-trophy" viewBox="0 0 24 24"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+  <symbol id="i-share" viewBox="0 0 24 24"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" x2="12" y1="2" y2="15"/></symbol>
+  <symbol id="i-gift" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5C9 3 12 5 12 8c0-3 3-5 4.5-5a2.5 2.5 0 0 1 0 5"/></symbol>
+  <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3l1.9 5.8L20 10.7l-5 3.7 1.9 5.9L12 16.6l-4.9 3.7L9 14.4l-5-3.7 6.1-1.9z"/></symbol>
   <symbol id="i-piggy" viewBox="0 0 24 24"><path d="M11 17h3v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-3a3.16 3.16 0 0 0 2-2h1a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1h-1a5 5 0 0 0-2-4V3a4 4 0 0 0-3.2 1.6l-.3.4H11a6 6 0 0 0-6 6v1a5 5 0 0 0 2 4v3a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1z"/><path d="M16 10h.01"/><path d="M2 8v1a2 2 0 0 0 2 2h1"/></symbol>
 </svg>
 <div class="bandwrap">
@@ -59,10 +71,9 @@
       </div>
       <div class="row">
         <span class="status" id="sync">Conectando…</span>
-        <button class="btn primary" id="btnInstalar" type="button" hidden><svg class="i" aria-hidden="true"><use href="#i-dl"/></svg>Instalar app</button>
-        <button class="btn" id="btnMail" type="button"><svg class="i" aria-hidden="true"><use href="#i-mail"/></svg>Enviar a mi correo</button>
-        <button class="btn" id="btnReset" type="button"><svg class="i" aria-hidden="true"><use href="#i-refresh"/></svg>Empezar de cero</button>
-        <button class="btn" id="btnExcel" type="button"><svg class="i" aria-hidden="true"><use href="#i-dl"/></svg>Descargar Excel</button>
+        <button class="btn primary" id="btnInstalar" type="button" hidden><svg class="i" aria-hidden="true"><use href="#i-dl"/></svg><span class="t">Instalar app</span></button>
+        <button class="btn iconbtn" id="btnTema" type="button" aria-label="Tema: automático"><svg class="i" aria-hidden="true"><use href="#i-auto"/></svg></button>
+        <button class="btn iconbtn" id="btnMenu" type="button" aria-label="Más opciones" aria-haspopup="dialog"><svg class="i" aria-hidden="true"><use href="#i-more"/></svg></button>
       </div>
     </header>
 
@@ -114,15 +125,21 @@
   <nav class="tabs glass" role="tablist">
     <button role="tab" data-tab="resumen" aria-selected="true"><svg class="i" aria-hidden="true"><use href="#i-dash"/></svg><span class="t">Resumen</span></button>
     <button role="tab" data-tab="deudas" aria-selected="false"><svg class="i" aria-hidden="true"><use href="#i-card"/></svg><span class="t">Deudas</span></button>
-    <button role="tab" data-tab="plan" aria-selected="false"><svg class="i" aria-hidden="true"><use href="#i-down"/></svg><span class="t">Plan de pagos</span></button>
-    <button role="tab" data-tab="cartera" aria-selected="false"><svg class="i" aria-hidden="true"><use href="#i-bank"/></svg><span class="t">Compra de cartera</span></button>
-    <button role="tab" data-tab="presupuesto" aria-selected="false"><svg class="i" aria-hidden="true"><use href="#i-pie"/></svg><span class="t">Presupuesto</span></button>
+    <button role="tab" data-tab="plan" aria-selected="false"><svg class="i" aria-hidden="true"><use href="#i-down"/></svg><span class="t">Plan<span class="dk"> de pagos</span></span></button>
     <button role="tab" data-tab="pagos" aria-selected="false"><svg class="i" aria-hidden="true"><use href="#i-receipt"/></svg><span class="t">Pagos</span></button>
-    <button role="tab" data-tab="abonos" aria-selected="false"><svg class="i" aria-hidden="true"><use href="#i-bulb"/></svg><span class="t">Cuándo abonar</span></button>
+    <button role="tab" class="extra" data-tab="cartera" aria-selected="false"><svg class="i" aria-hidden="true"><use href="#i-bank"/></svg><span class="t">Compra de cartera</span></button>
+    <button role="tab" class="extra" data-tab="presupuesto" aria-selected="false"><svg class="i" aria-hidden="true"><use href="#i-pie"/></svg><span class="t">Presupuesto</span></button>
+    <button role="tab" class="extra" data-tab="abonos" aria-selected="false"><svg class="i" aria-hidden="true"><use href="#i-bulb"/></svg><span class="t">Cuándo abonar</span></button>
+    <button role="tab" class="extra" data-tab="logros" aria-selected="false"><svg class="i" aria-hidden="true"><use href="#i-trophy"/></svg><span class="t">Logros</span></button>
+    <button class="masbtn" type="button" id="btnMas" aria-haspopup="dialog"><svg class="i" aria-hidden="true"><use href="#i-grid"/></svg><span class="t">Más</span></button>
   </nav>
 
   <!-- RESUMEN -->
   <section class="panel" data-panel="resumen">
+    <div class="callout warn row between" id="bkAviso" hidden>
+      <span id="bkAvisoTxt">Hace tiempo no guardas un respaldo de tus datos.</span>
+      <button class="btn" type="button" id="bkAvisoBtn"><svg class="i" aria-hidden="true"><use href="#i-share"/></svg>Guardar respaldo</button>
+    </div>
     <div class="glass card">
       <div class="row between"><h2><svg class="i" aria-hidden="true"><use href="#i-wallet"/></svg>A dónde se va tu sueldo</h2><span id="salaryPill"></span></div>
       <div class="salary" id="salaryBar" role="img" aria-label="Reparto del ingreso mensual"></div>
@@ -158,6 +175,13 @@
       <div class="glass card">
         <div class="row between"><h2><svg class="i" aria-hidden="true"><use href="#i-cal"/></svg>Próximos pagos</h2><button class="btn primary" type="button" data-open-pago><svg class="i" aria-hidden="true"><use href="#i-plus"/></svg>Registrar pago</button></div>
         <div id="dueList"><p class="empty">Aquí aparecen tus fechas de pago cuando carguen las deudas.</p></div>
+        <div class="remind">
+          <p class="small muted">Que no se te pase ninguna fecha:</p>
+          <div class="row">
+            <button class="btn" type="button" id="btnCal"><svg class="i" aria-hidden="true"><use href="#i-cal"/></svg>Agregar a mi calendario</button>
+            <button class="btn" type="button" id="btnAvisos"><svg class="i" aria-hidden="true"><use href="#i-bell"/></svg><span id="avisosTxt">Avisarme al abrir la app</span></button>
+          </div>
+        </div>
       </div>
       <div class="glass card">
         <div class="row between"><h2><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>Pasos del plan</h2><span class="pill info" id="stepsCount"></span></div>
@@ -176,7 +200,11 @@
       </div>
     </div>
     <div class="dgrid" id="debtList"><p class="empty">Cargando deudas…</p></div>
-    <div class="glass card" id="debtForm" hidden>
+  </section>
+
+  <div class="wiz sheet" id="debtForm" hidden role="dialog" aria-modal="true" aria-labelledby="debtFormTitle">
+    <div class="wizcard">
+      <span class="grab" aria-hidden="true"></span>
       <h2 id="debtFormTitle">Deuda</h2>
       <div class="formgrid">
         <label class="f">Nombre<input id="dNombre" type="text"></label>
@@ -193,7 +221,7 @@
       <div class="row"><button class="btn primary" type="button" id="dGuardar">Guardar</button><button class="btn" type="button" id="dCancelar">Cancelar</button><span style="flex:1"></span><button class="btn danger" type="button" id="dBorrar" hidden>Eliminar deuda</button></div>
       <div class="row" id="dConfirmRow" hidden><span class="small">¿Eliminar esta deuda? Sus pagos quedan sin vincular.</span><button class="btn danger" type="button" id="dBorrarSi">Sí, eliminar</button><button class="btn" type="button" id="dBorrarNo">No</button></div>
     </div>
-  </section>
+  </div>
 
   <!-- PLAN -->
   <section class="panel" data-panel="plan" hidden>
@@ -208,6 +236,26 @@
     <div class="grid3">
       <div class="glass card"><h2><svg class="i" aria-hidden="true"><use href="#i-flag"/></svg>Tu camino a cero deudas</h2><ul class="timeline" id="payoffList"></ul></div>
       <div class="glass card"><h2><svg class="i" aria-hidden="true"><use href="#i-piggy"/></svg>Lo que ganas con el plan</h2><div id="compare"></div></div>
+    </div>
+    <div class="glass card" id="simCard">
+      <div class="row between"><h2><svg class="i" aria-hidden="true"><use href="#i-spark"/></svg>¿Y si…? Prueba otro escenario</h2><span class="pill info">No cambia tu plan</span></div>
+      <p class="small muted">Mueve los valores y compara con tu plan actual. Nada se guarda hasta que tú lo decidas.</p>
+      <div class="formgrid">
+        <label class="f">Abono extra cada mes ($)<input id="sExtra" class="numin money" type="text" inputmode="numeric" autocomplete="off"></label>
+        <label class="f">Pago único: prima, bono… ($)<input id="sUnico" class="numin money" type="text" inputmode="numeric" autocomplete="off" placeholder="0"></label>
+        <label class="f">¿En qué mes llega?<select id="sMes"></select></label>
+        <label class="f">Estrategia<select id="sEstr"><option value="avalancha">Avalancha (tasa más alta)</option><option value="bola">Bola de nieve (saldo más pequeño)</option></select></label>
+      </div>
+      <div class="simgrid" id="simOut"></div>
+      <div class="row"><button class="btn primary" type="button" id="sAplicar">Usar este abono mensual en mi plan</button><button class="btn ghost" type="button" id="sReset">Volver a mi plan</button></div>
+    </div>
+    <div class="glass card" id="primaCard">
+      <h2><svg class="i" aria-hidden="true"><use href="#i-gift"/></svg>¿Te llegó prima o un ingreso extra?</h2>
+      <div class="formgrid">
+        <label class="f">¿Cuánto te llegó? ($)<input id="prMonto" class="numin money" type="text" inputmode="numeric" autocomplete="off" placeholder="Ej. 1.500.000"></label>
+        <label class="f">¿Qué es?<select id="prTipo"><option value="prima">Prima de servicios</option><option value="extra">Bono u otro ingreso extra</option><option value="cesantias">Cesantías</option></select></label>
+      </div>
+      <div id="prOut"></div>
     </div>
     <div class="glass card" style="padding:0;gap:0;overflow:hidden">
       <div style="padding:18px 18px 12px"><h2>Mes a mes</h2><p class="small muted">Cuando una deuda se acaba, su cuota pasa a la siguiente. El pago total no cambia, pero cada mes va más a capital.</p></div>
@@ -278,8 +326,18 @@
 
   <!-- PAGOS -->
   <section class="panel" data-panel="pagos" hidden>
-    <div class="glass card" id="pagoForm">
-      <h2><svg class="i" aria-hidden="true"><use href="#i-plus"/></svg>Registrar un pago</h2>
+    <div class="glass card">
+      <div class="row between"><h2><svg class="i" aria-hidden="true"><use href="#i-down"/></svg>Cómo ha bajado tu deuda de verdad</h2><button class="btn primary" type="button" data-open-pago><svg class="i" aria-hidden="true"><use href="#i-plus"/></svg>Registrar pago</button></div>
+      <div class="chartbox" id="histChart"></div>
+      <p class="small muted" id="histNote"></p>
+    </div>
+    <div class="glass tablebox"><table id="pagosTable"></table></div>
+  </section>
+
+  <div class="wiz sheet" id="pagoM" hidden role="dialog" aria-modal="true" aria-labelledby="pagoT">
+    <div class="wizcard" id="pagoForm">
+      <span class="grab" aria-hidden="true"></span>
+      <div class="row between"><h2 id="pagoT"><svg class="i" aria-hidden="true"><use href="#i-plus"/></svg>Registrar un pago</h2><button class="btn ghost" type="button" data-close="pagoM">Cerrar</button></div>
       <div class="formgrid">
         <label class="f">Deuda<select id="rDeuda"></select></label>
         <label class="f">Fecha<input id="rFecha" type="date"></label>
@@ -291,8 +349,7 @@
       <p class="small muted" id="rHint"></p>
       <div class="row"><button class="btn primary" type="button" id="rGuardar">Guardar pago</button></div>
     </div>
-    <div class="glass tablebox"><table id="pagosTable"></table></div>
-  </section>
+  </div>
 
   <!-- ABONOS -->
   <section class="panel" data-panel="abonos" hidden>
@@ -316,8 +373,10 @@
     <div class="glass card">
       <h2><svg class="i" aria-hidden="true"><use href="#i-dl"/></svg>Tus datos y respaldo</h2>
       <p>Tus datos se guardan solo en este navegador. No se envían a ningún servidor. Si cambias de celular o borras el historial del navegador, se pierden, así que descarga un respaldo de vez en cuando.</p>
+      <p class="small muted" id="bkUltimo"></p>
       <div class="row">
         <button class="btn" type="button" id="bkExport"><svg class="i" aria-hidden="true"><use href="#i-dl"/></svg>Descargar respaldo</button>
+        <button class="btn" type="button" id="bkShare" hidden><svg class="i" aria-hidden="true"><use href="#i-share"/></svg>Guardar en Drive o compartir</button>
         <label class="btn" style="cursor:pointer"><input type="file" id="bkImport" accept="application/json" hidden>Cargar respaldo</label>
         <button class="btn" type="button" id="btnWiz">Volver a empezar el asistente</button>
         <button class="btn danger" type="button" id="bkReset">Borrar todos mis datos</button>
@@ -325,6 +384,19 @@
       <div class="row" id="bkConfirm" hidden><span class="small">Esto borra tus deudas y pagos de este dispositivo. ¿Seguro?</span><button class="btn danger" type="button" id="bkYes">Sí, borrar</button><button class="btn" type="button" id="bkNo">No</button></div>
     </div>
   </section>
+  <!-- LOGROS -->
+  <section class="panel" data-panel="logros" hidden>
+    <div class="glass card">
+      <div class="row between"><h2><svg class="i" aria-hidden="true"><use href="#i-flame"/></svg>Tu racha</h2><span class="pill info" id="lgCuenta"></span></div>
+      <div class="racha"><span class="huge2" id="lgRacha">0</span><p id="lgRachaTxt">Registra tus pagos cada mes para construir tu racha.</p></div>
+      <div class="meses" id="lgMeses" aria-label="Meses con pagos registrados"></div>
+    </div>
+    <div class="glass card">
+      <h2><svg class="i" aria-hidden="true"><use href="#i-trophy"/></svg>Insignias</h2>
+      <div class="badges" id="lgBadges"></div>
+    </div>
+  </section>
+
   <footer class="footer"><p><b>Plan Libre de Deudas</b> es una herramienta educativa y gratuita. No es asesoría financiera: antes de tomar un crédito o una compra de cartera, compara condiciones y lee el contrato.</p><p>Tus datos no salen de tu dispositivo.</p></footer>
 </div>
 <div class="wiz" id="wiz" hidden role="dialog" aria-modal="true" aria-labelledby="wizTitle">
@@ -399,6 +471,45 @@
     <p class="small muted">Queda con su ícono, abre en pantalla completa y funciona sin internet. Tus datos siguen guardados solo en tu celular.</p>
   </div>
 </div>
+<div class="wiz sheet" id="menuM" hidden role="dialog" aria-modal="true" aria-labelledby="menuT">
+  <div class="wizcard">
+    <span class="grab" aria-hidden="true"></span>
+    <div class="row between"><h2 id="menuT">Opciones</h2><button class="btn ghost" type="button" data-close="menuM">Cerrar</button></div>
+    <div class="menulist">
+      <button class="mi" type="button" id="btnPerfiles"><svg class="i" aria-hidden="true"><use href="#i-users"/></svg><span>Perfil<small id="perfilNombre"></small></span></button>
+      <button class="mi" type="button" id="btnMail"><svg class="i" aria-hidden="true"><use href="#i-mail"/></svg><span>Enviar mi plan al correo</span></button>
+      <button class="mi" type="button" id="btnExcel"><svg class="i" aria-hidden="true"><use href="#i-dl"/></svg><span>Descargar Excel</span></button>
+      <button class="mi" type="button" id="btnCal2"><svg class="i" aria-hidden="true"><use href="#i-cal"/></svg><span>Recordatorios en mi calendario</span></button>
+      <button class="mi" type="button" data-goto-menu="abonos"><svg class="i" aria-hidden="true"><use href="#i-shield"/></svg><span>Respaldo de mis datos</span></button>
+      <button class="mi danger" type="button" id="btnReset"><svg class="i" aria-hidden="true"><use href="#i-refresh"/></svg><span>Empezar de cero</span></button>
+    </div>
+  </div>
+</div>
+<div class="wiz sheet" id="masM" hidden role="dialog" aria-modal="true" aria-labelledby="masT">
+  <div class="wizcard">
+    <span class="grab" aria-hidden="true"></span>
+    <div class="row between"><h2 id="masT">Más secciones</h2><button class="btn ghost" type="button" data-close="masM">Cerrar</button></div>
+    <div class="menulist" id="masList"></div>
+  </div>
+</div>
+<div class="wiz sheet" id="perfilesM" hidden role="dialog" aria-modal="true" aria-labelledby="perfilesT">
+  <div class="wizcard">
+    <span class="grab" aria-hidden="true"></span>
+    <div class="row between"><h2 id="perfilesT">Perfiles en este dispositivo</h2><button class="btn ghost" type="button" data-close="perfilesM">Cerrar</button></div>
+    <p class="small muted">Cada perfil tiene sus propias deudas, pagos y presupuesto. Sirve si otra persona de tu casa quiere armar su plan en este mismo celular.</p>
+    <ul class="wizlist" id="perfilesList"></ul>
+    <div class="row"><input id="perfilNuevo" type="text" placeholder="Nombre del nuevo perfil" aria-label="Nombre del nuevo perfil" style="flex:1"><button class="btn primary" type="button" id="perfilCrear">Crear</button></div>
+  </div>
+</div>
+<div class="celebra" id="celebra" hidden role="status" aria-live="polite">
+  <canvas id="confeti" aria-hidden="true"></canvas>
+  <div class="celebracard">
+    <div class="tile green"><svg class="i" aria-hidden="true"><use href="#i-trophy"/></svg></div>
+    <h2 id="celebraT">¡Bien hecho!</h2>
+    <p id="celebraP"></p>
+    <button class="btn primary" type="button" id="celebraOk">Seguir</button>
+  </div>
+</div>
 <div id="tip" hidden></div>
 <div class="toast" id="toast" hidden></div>
 
@@ -409,6 +520,8 @@
 <script src="js/datos.js"></script>
 <script src="js/calculos.js"></script>
 <script src="js/app.js"></script>
+<script src="js/interfaz.js"></script>
+<script src="js/funciones.js"></script>
 <script src="js/pwa.js"></script>
 </body>
 </html>

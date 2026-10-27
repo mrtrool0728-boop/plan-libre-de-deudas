@@ -26,10 +26,15 @@ document.addEventListener('mousemove',e=>{const t=e.target.closest&&e.target.clo
 const tipRow=(c,l,v)=>`<div class="tr"><span><i style="background:${c}"></i>${esc(l)}</span><b>${v}</b></div>`;
 
 /* ---------- Tabs ---------- */
-function showTab(name){$$('nav.tabs button').forEach(b=>b.setAttribute('aria-selected',b.dataset.tab===name));$$('[data-panel]').forEach(p=>p.hidden=p.dataset.panel!==name);tip.hidden=true}
-$$('nav.tabs button').forEach(b=>b.addEventListener('click',()=>showTab(b.dataset.tab)));
-$$('[data-open-pago]').forEach(b=>b.addEventListener('click',()=>{showTab('pagos');$('#rMonto').focus()}));
-const hh=(location.hash||'').slice(1);if(['resumen','deudas','plan','cartera','presupuesto','pagos','abonos'].includes(hh))showTab(hh);
+const TABS=['resumen','deudas','plan','cartera','presupuesto','pagos','abonos','logros'];
+let tabNow='resumen';
+function showTab(name){if(!TABS.includes(name))return;const dir=TABS.indexOf(name)>=TABS.indexOf(tabNow)?'next':'prev';tabNow=name;
+  $$('[data-tab]').forEach(b=>b.setAttribute('aria-selected',b.dataset.tab===name));
+  $$('[data-panel]').forEach(p=>{p.hidden=p.dataset.panel!==name;if(!p.hidden){p.dataset.dir=dir;p.classList.remove('anim');void p.offsetWidth;p.classList.add('anim');clearTimeout(p._a);p._a=setTimeout(()=>p.classList.remove('anim'),1200)}});
+  tip.hidden=true;document.dispatchEvent(new CustomEvent('pld:tab',{detail:name}))}
+$$('[data-tab]').forEach(b=>b.addEventListener('click',()=>showTab(b.dataset.tab)));
+$$('[data-open-pago]').forEach(b=>b.addEventListener('click',()=>{$('#pagoM').hidden=false;setTimeout(()=>$('#rMonto').focus(),60)}));
+const hh=(location.hash||'').slice(1);if(TABS.includes(hh))showTab(hh);
 
 /* ---------- Derived ---------- */
 const activas=()=>S.deudas.filter(d=>(+d.saldo||0)>0);
@@ -61,7 +66,7 @@ function renderHero(){
   const p=plan(),b=base(),t=totalSaldo(),ah=Math.max(0,b.interes-p.interes);
   {const nm=(S.pres?.nombre||'').trim();$('#heroName').textContent=nm?nm+', vas':'Vas'}const d=new Date();$('#heroDate').textContent='Tu programa personal · '+MESES[d.getMonth()]+' '+d.getFullYear();
   countTo($('#kTotal'),t,money);countTo($('#kSaveV'),ah,money);countTo($('#bnSave'),ah,money);
-  $('#heroLead').innerHTML=t>0?`Debes <b>${money(t)}</b> en ${activas().length} deudas. Siguiendo el plan quedas libre en <b>${p.fin?mlabel(p.fin):'—'}</b> y te ahorras <b>${money(ah)}</b> en intereses.`:S.deudas.length?'<b>¡Lo lograste!</b> Ya no tienes deudas. Ahora lo que pagabas en cuotas puede ir a tu ahorro.':'Agrega tus deudas y en un minuto ves en qué mes quedas libre y cuánto te ahorras en intereses.';
+  $('#heroLead').innerHTML=t>0?`Debes <b>${money(t)}</b> en ${activas().length===1?'1 deuda':activas().length+' deudas'}. Siguiendo el plan quedas libre en <b>${p.fin?mlabel(p.fin):'—'}</b> y te ahorras <b>${money(ah)}</b> en intereses.`:S.deudas.length?'<b>¡Lo lograste!</b> Ya no tienes deudas. Ahora lo que pagabas en cuotas puede ir a tu ahorro.':'Agrega tus deudas y en un minuto ves en qué mes quedas libre y cuánto te ahorras en intereses.';
   $('#bnText').textContent=b.meses>p.meses?`menos en intereses que pagando solo los mínimos, y terminas ${b.meses-p.meses} meses antes.`:'menos en intereses que pagando solo los mínimos.';
   // etapas
   const by=id=>S.deudas.find(x=>x.id===id);const steps=S.pasos?.items||[];
@@ -87,7 +92,7 @@ function renderKpis(){
   $('#kRing').style.strokeDashoffset=(389.56*(1-av)).toFixed(2);
   const p=plan(),b=base();
   $('#kSave').textContent=p.meses&&b.meses>p.meses?`y terminas ${b.meses-p.meses} meses antes`:'con el plan';
-  $('#kCuotas').textContent=money(cuotasMes());
+  countTo($('#kCuotas'),cuotasMes(),money);
   const ing=ingresoMes();$('#kCuotasS').textContent=ing?Math.round(cuotasMes()/ing*100)+'% de tu ingreso':'Falta el ingreso';
   $('#kLibre').textContent=p.fin?mlabel(p.fin):'—';$('#kLibreS').textContent=p.fin?`en ${p.meses} meses con el plan`:'';
   const nx=dueItems().find(x=>!x.pagado);
@@ -122,7 +127,7 @@ function renderDonut(){
 function renderBurn(){
   const ds=activas().map(d=>({d,v:burnOf(d)})).filter(x=>x.v>0).sort((a,b)=>b.v-a.v);const mx=Math.max(1,...ds.map(x=>x.v));
   $('#burn').innerHTML=ds.length?ds.map(({d,v})=>`<div class="hb" data-tip="${esc(`<div class='tt'>${esc(d.nombre)}</div>Intereses ${money(d.saldo*rm(d.tasaEA))}${d.cargos?'<br>Seguros/manejo '+money(d.cargos):''}<br>Tasa ${(+d.tasaEA).toFixed(2)}% EA`)}"><span class="nm">${esc(d.nombre)}</span><div class="tr"><i style="width:${(v/mx*100).toFixed(1)}%;background:${col(d)}"></i></div><span class="num">${money(v)}</span></div>`).join(''):'<p class="empty">Sin costos este mes.</p>';
-  $('#burnTotal').textContent=money(ds.reduce((a,x)=>a+x.v,0));
+  countTo($('#burnTotal'),ds.reduce((a,x)=>a+x.v,0),money);
 }
 
 /* ---------- Area chart ---------- */
@@ -190,6 +195,7 @@ function renderDebts(){
       <div class="due" style="padding:8px 0 0;border-top:1px solid var(--line);border-bottom:0"><span class="small muted">${+d.saldo>0?`Te cuesta ${money(burnOf(d))}/mes · termina ${fin?mlabel(fin):'—'}`:'¡Pagada!'}</span><button class="btn ghost" type="button" data-edit="${esc(d.id)}" ${canWrite?'':'disabled'}>Editar</button></div>
       ${d.nota?`<p class="small muted">${esc(d.nota)}</p>`:''}</article>`}).join('');
   el.querySelectorAll('[data-edit]').forEach(b=>b.addEventListener('click',()=>openDebt(S.deudas.find(d=>d.id===b.dataset.edit))));
+  if(canWrite)el.querySelectorAll('.dcard').forEach(c=>{c.classList.add('tap');c.addEventListener('click',e=>{if(!e.target.closest('button'))c.querySelector('[data-edit]').click()})});
 }
 function freeSlot(){const used=new Set(S.deudas.map(slotOf));for(let i=1;i<=8;i++)if(!used.has(i))return i;return 8}
 function openDebt(d,isNew){
@@ -197,7 +203,7 @@ function openDebt(d,isNew){
   $('#debtForm').hidden=false;$('#dConfirmRow').hidden=true;$('#debtFormTitle').textContent=editing?'Editar deuda':'Nueva deuda';
   d=d||{};$('#dNombre').value=d.nombre||'';$('#dEntidad').value=d.entidad||'';$('#dTipo').value=d.tipo||'Otro';
   $('#dSaldo').value=d.saldo??'';$('#dSaldoIni').value=d.saldoInicial??'';$('#dTasa').value=d.tasaEA??'';$('#dCuota').value=d.cuota??'';$('#dCargos').value=d.cargos??0;$('#dDia').value=d.diaPago??'';$('#dNota').value=d.nota||'';
-  $('#dBorrar').hidden=!editing;$('#debtForm').scrollIntoView({behavior:'smooth',block:'start'});
+  $('#dBorrar').hidden=!editing;setTimeout(()=>$('#dNombre').focus(),60);
 }
 $('#btnNueva').addEventListener('click',()=>openDebt(null,true));
 void 0&&$('#btnFondo').addEventListener('click',()=>openDebt({nombre:'Préstamo Fondo CREA (nuevo)',entidad:'Fondo CREA',tipo:'Libranza',saldo:3000000,saldoInicial:3000000,tasaEA:22.42,cuota:321218,cargos:0,diaPago:15,nota:'21 cuotas quincenales de $160.609, descontadas por nómina.'},true));
@@ -283,7 +289,8 @@ $('#rGuardar').addEventListener('click',async()=>{
   nuevo=Math.max(0,Math.round(nuevo));
   try{await db.collection('pagos').add({fecha:$('#rFecha').value||todayISO(),deudaId:d.id,monto,tipo,saldoDespues:nuevo,nota:$('#rNota').value.trim()});
     await db.doc('deudas/'+d.id).update({saldo:nuevo});
-    $('#rMonto').value='';$('#rSaldo').value='';$('#rNota').value='';toast(nuevo===0?'¡Deuda pagada!':'Pago guardado');saveHist(d.id,nuevo)}catch(e){toast('No se pudo guardar el pago')}
+    $('#rMonto').value='';$('#rSaldo').value='';$('#rNota').value='';$('#pagoM').hidden=true;toast(nuevo===0?'¡Deuda pagada!':'Pago guardado');saveHist(d.id,nuevo);
+    if(nuevo===0)document.dispatchEvent(new CustomEvent('pld:celebrar',{detail:{titulo:'¡Pagaste '+d.nombre+'!',texto:'Una deuda menos. Su cuota ahora acelera la siguiente.'}}))}catch(e){toast('No se pudo guardar el pago')}
 });
 
 function renderAbono(){
@@ -298,7 +305,7 @@ function renderAbono(){
 
 /* ---------- Modo archivo: guarda en este navegador cuando la página no está dentro de Claude ---------- */
 function localDb(){
-  const KEY='plan-libre-de-deudas-v1';let mem=null;
+  const KEY=PERFILES.clave();let mem=null;
   const load=()=>{if(mem)return mem;try{mem=JSON.parse(localStorage.getItem(KEY)||'null')}catch(e){}if(!mem)mem=SEED?JSON.parse(JSON.stringify(SEED)):{deudas:{},pagos:{},historial:{},config:{}};return mem};
   const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(mem))}catch(e){}};
   const subs=[];const emit=()=>subs.forEach(f=>f());
@@ -338,11 +345,14 @@ $('#wNext').addEventListener('click',async()=>{
   gastosDraft=null;$('#wiz').hidden=true;saveHist();toast('¡Listo! Este es tu plan')});
 function maybeWiz(){if(S.ready.d&&S.ready.c&&!S.deudas.length&&!S.pres?.listo&&$('#wiz').hidden&&!maybeWiz.shown){maybeWiz.shown=true;openWiz()}}
 /* respaldo */
-$('#bkExport').addEventListener('click',()=>{const data=localStorage.getItem('plan-libre-de-deudas-v1')||'{}';const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([data],{type:'application/json'}));a.download='respaldo_plan_deudas_'+todayISO()+'.json';document.body.appendChild(a);a.click();a.remove();toast('Respaldo descargado')});
-$('#bkImport').addEventListener('change',async e=>{const f=e.target.files[0];if(!f)return;try{const t=await f.text();JSON.parse(t);localStorage.setItem('plan-libre-de-deudas-v1',t);location.reload()}catch(err){toast('Ese archivo no es un respaldo válido')}});
+const marcarRespaldo=()=>{try{localStorage.setItem('pld-respaldo:'+PERFILES.clave(),todayISO())}catch(e){}document.dispatchEvent(new CustomEvent('pld:respaldo'))};
+const respaldoBlob=()=>new Blob([localStorage.getItem(PERFILES.clave())||'{}'],{type:'application/json'});
+const respaldoNombre=()=>'respaldo_plan_deudas_'+todayISO()+'.json';
+$('#bkExport').addEventListener('click',()=>{const a=document.createElement('a');a.href=URL.createObjectURL(respaldoBlob());a.download=respaldoNombre();document.body.appendChild(a);a.click();a.remove();marcarRespaldo();toast('Respaldo descargado')});
+$('#bkImport').addEventListener('change',async e=>{const f=e.target.files[0];if(!f)return;try{const t=await f.text();JSON.parse(t);localStorage.setItem(PERFILES.clave(),t);location.reload()}catch(err){toast('Ese archivo no es un respaldo válido')}});
 $('#bkReset').addEventListener('click',()=>$('#bkConfirm').hidden=false);
 $('#bkNo').addEventListener('click',()=>$('#bkConfirm').hidden=true);
-$('#bkYes').addEventListener('click',()=>{try{localStorage.removeItem('plan-libre-de-deudas-v1')}catch(e){}location.reload()});
+$('#bkYes').addEventListener('click',()=>{try{localStorage.removeItem(PERFILES.clave())}catch(e){}location.reload()});
 $('#btnWiz').addEventListener('click',openWiz);
 
 /* ---------- Compra de cartera ---------- */
@@ -449,8 +459,18 @@ $('#btnExcel').addEventListener('click',async()=>{
 async function saveHist(id,nuevo){if(!db)return;let t=totalSaldo();if(id){const d=S.deudas.find(x=>x.id===id);if(d)t=t-(+d.saldo||0)+nuevo}
   try{await db.doc('historial/'+todayISO()).set({fecha:todayISO(),total:Math.round(t)})}catch(e){}}
 
+/* En celular las tablas se ven como tarjetas: cada celda lleva el nombre de su columna. */
+function labelTable(t){const hs=[...t.querySelectorAll('thead th')].map(th=>th.textContent);if(!hs.length)return;
+  t.classList.add('cards');t.querySelectorAll('tbody tr').forEach(tr=>[...tr.children].forEach((td,i)=>{if(hs[i])td.dataset.label=hs[i]}))}
+
+/* Punto de enlace para js/interfaz.js y js/funciones.js: leen el estado y agregan sus propios render. */
+const PLD={S,$,$$,money,short,mlabel,esc,todayISO,col,slotOf,plan,base,activas,totalSaldo,totalIni,cuotasMes,gastosMes,ingresoMes,burnOf,dueItems,toast,showTab,countTo,reduce,
+  db:()=>db,canWrite:()=>canWrite,respaldoBlob,respaldoNombre,marcarRespaldo,hooks:[],renderAll:()=>renderAll()};
+window.PLD=PLD;
+
 function renderAll(){if(!(S.ready.d&&S.ready.c))return;invalidate();
-  renderKpis();renderHero();renderSalary();renderDonut();renderBurn();renderArea();renderDue();renderSteps();renderDebts();renderPlan();renderBudget();renderPagos();renderAbono();renderCartera();maybeWiz()}
+  renderKpis();renderHero();renderSalary();renderDonut();renderBurn();renderArea();renderDue();renderSteps();renderDebts();renderPlan();renderBudget();renderPagos();renderAbono();renderCartera();
+  $$('.tablebox table').forEach(labelTable);PLD.hooks.forEach(f=>{try{f()}catch(e){console.error(e)}});maybeWiz()}
 
 (async function boot(){
   db=window.claude?await claude.use('db'):null;

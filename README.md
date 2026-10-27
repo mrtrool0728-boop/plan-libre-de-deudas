@@ -9,7 +9,11 @@ Herramienta web gratuita para organizar tus deudas y armar un plan de pagos. Mue
 - Gráficas: a dónde se va el sueldo, reparto de la deuda, costo mensual en intereses y proyección mes a mes.
 - Compra de cartera: compara tus deudas con las tasas de referencia de las entidades.
 - Registro de pagos y abonos a capital, próximos pagos y etapas del programa.
-- Envía el resumen a tu correo, exporta a Excel y permite descargar o cargar un respaldo.
+- Simulador "¿y si…?" (abono extra, prima o bono) y guía para repartir la prima.
+- Recordatorios de pago en tu calendario y avisos al abrir la app.
+- Historial real de cómo baja tu deuda, racha de meses e insignias.
+- Varios perfiles en el mismo dispositivo y tema claro u oscuro.
+- Envía el resumen a tu correo, exporta a Excel y guarda un respaldo (descarga o Drive/compartir).
 
 ## Instalarla como app
 
@@ -27,7 +31,10 @@ index.html              estructura de las pantallas
 css/estilos.css         diseño y colores
 js/datos.js             tasa de usura y tasas de compra de cartera (actualización mensual)
 js/calculos.js          cálculos del plan de pagos
+js/perfiles.js          perfiles y tema guardado
 js/app.js               pantallas e interacción
+js/interfaz.js          menú, barra inferior del celular, gestos, animaciones
+js/funciones.js         simulador, recordatorios, logros, historial, respaldo
 js/pwa.js               instalación y modo sin internet
 sw.js                   guarda la app para usarla sin internet
 manifest.webmanifest    nombre, colores e íconos de la app
