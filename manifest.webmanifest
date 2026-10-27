@@ -1,0 +1,24 @@
+{
+  "name": "Plan Libre de Deudas",
+  "short_name": "Libre de Deudas",
+  "description": "Organiza tus deudas, mira en qué mes quedas libre y cuánto te ahorras en intereses. Tus datos no salen de tu dispositivo.",
+  "lang": "es-CO",
+  "id": "./",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#F4F3FB",
+  "theme_color": "#3F25A6",
+  "categories": ["finance", "productivity"],
+  "icons": [
+    { "src": "iconos/icono-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "iconos/icono-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "iconos/icono-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" },
+    { "src": "iconos/icono.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ],
+  "shortcuts": [
+    { "name": "Registrar pago", "url": "./#pagos", "icons": [{ "src": "iconos/icono-192.png", "sizes": "192x192" }] },
+    { "name": "Mi plan de pagos", "url": "./#plan", "icons": [{ "src": "iconos/icono-192.png", "sizes": "192x192" }] }
+  ]
+}
