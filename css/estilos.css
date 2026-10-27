@@ -565,3 +565,11 @@ body:not(.entrando) #app{z-index:auto}
 }
 /* La portada mantiene el verde azulado de la referencia también en modo oscuro */
 .pt-hero,.pt-oscura{background:#1E4D45}
+
+/* El asistente "Arma tu plan" y la entrega del plan siempre en colores claros, aunque el equipo esté en modo oscuro */
+#wiz,#entrega{
+  --bg:#F3F7F5; --surface:#FFFFFF; --surface-2:#F6F9F8; --sunk:#E6EEEB;
+  --ink:#14302B; --muted:#56706A; --line:#DCE7E3; --line-strong:#BFD1CB;
+  --brand:#1E4D45; --brand-2:#2A5E55; --on-brand:#FFFFFF; --brand-soft:#E3EFEB;
+  --good:#1F7A55; --good-soft:#E1F2EA; --warn:#A85F0A; --bad:#B42318;
+  color-scheme:light; color:var(--ink)}
