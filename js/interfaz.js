@@ -124,6 +124,14 @@ $('#entregaOk').addEventListener('click',()=>{const e=$('#entrega');
   const fin=()=>{e.hidden=true;e.classList.remove('vivo');document.body.classList.remove('modo-portada');marcarEntrada();PLD.showTab('resumen');scrollTo(0,0)};
   if(reduce||!e.animate)return fin();e.animate([{opacity:1,transform:'scale(1)'},{opacity:0,transform:'scale(1.04)'}],{duration:350,easing:'ease-in'}).onfinish=fin});
 
+/* ---------- Portada: las tarjetas se inclinan siguiendo el mouse ---------- */
+const arte=$('.pt-arte');
+if(arte&&!reduce&&matchMedia('(hover:hover)').matches){
+  arte.addEventListener('pointermove',e=>{const r=arte.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;
+    arte.style.setProperty('--ry',(x*14).toFixed(1)+'deg');arte.style.setProperty('--rx',(-y*10).toFixed(1)+'deg')});
+  arte.addEventListener('pointerleave',()=>{arte.style.setProperty('--ry','0deg');arte.style.setProperty('--rx','0deg')});
+}
+
 /* ---------- Portada: datos reales y animación al bajar ---------- */
 if(typeof USURA!=='undefined'){$('#ptUsura').textContent=USURA.ea.toFixed(2).replace('.',',')+'%';$('#ptUsuraM').textContent='tasa de usura, '+USURA.mes}
 if(typeof OFERTAS!=='undefined')$('#ptEntidades').textContent=new Set(OFERTAS.lista.filter(o=>!/promedio/i.test(o.e)).map(o=>o.e)).size;

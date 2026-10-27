@@ -573,3 +573,13 @@ body:not(.entrando) #app{z-index:auto}
   --brand:#1E4D45; --brand-2:#2A5E55; --on-brand:#FFFFFF; --brand-soft:#E3EFEB;
   --good:#1F7A55; --good-soft:#E1F2EA; --warn:#A85F0A; --bad:#B42318;
   color-scheme:light; color:var(--ink)}
+/* Tarjetas de la portada: flotan, la estrella titila y se inclinan siguiendo el mouse */
+.pt-arte{transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .4s var(--ease);will-change:transform}
+.pt-t1,.pt-t2,.pt-brillo,.pt-punto{transform-box:fill-box;transform-origin:center}
+.pt-t1{animation:flota 6s ease-in-out infinite}
+.pt-t2{animation:flota 5s ease-in-out -2.5s infinite reverse}
+.pt-brillo{animation:titila 2.8s ease-in-out infinite}
+.pt-punto{animation:titila 2.2s ease-in-out -1s infinite}
+@keyframes flota{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes titila{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.7)}}
+@media (prefers-reduced-motion:reduce){.pt-t1,.pt-t2,.pt-brillo,.pt-punto{animation:none!important}.pt-arte{transform:none!important}}
