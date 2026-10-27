@@ -68,7 +68,7 @@ function renderHero(){
   const ini=totalIni(),av=ini>0?Math.round(Math.max(0,(ini-t)/ini)*100):0;
   countTo($('#kTotal'),t,money);
   $('#heroTitle').textContent=t>0?`${nm?nm+', q':'Q'}uedas libre en ${p.fin?mlabel(p.fin):'—'}`:S.deudas.length?`${nm?nm+', ¡l':'¡L'}o lograste!`:'Agrega tus deudas para ver tu plan';
-  $('#heroLead').innerHTML=t>0?`Faltan <b>${p.meses} ${p.meses===1?'mes':'meses'}</b>. Llevas <b>${av}%</b> pagado y te ahorras <b>${money(ah)}</b> en intereses${b.meses>p.meses?` frente a pagar solo los mínimos, terminando ${b.meses-p.meses} meses antes`:''}.`:S.deudas.length?'Ya no tienes deudas. Lo que pagabas en cuotas ahora puede ir a tu ahorro.':'Anota tus deudas en la pestaña Deudas y en un minuto ves en qué mes quedas libre.';
+  $('#heroLead').innerHTML=t>0?`Faltan <b>${p.meses} ${p.meses===1?'mes':'meses'}</b>. Llevas <b>${av}%</b> pagado${Math.round(ah)>0?` y te ahorras <b>${money(ah)}</b> en intereses${b.meses>p.meses?` frente a pagar solo los mínimos, terminando ${b.meses-p.meses} meses antes`:''}`:'. Con un abono extra cada mes, la fecha se adelanta'}.`:S.deudas.length?'Ya no tienes deudas. Lo que pagabas en cuotas ahora puede ir a tu ahorro.':'Anota tus deudas en la pestaña Deudas y en un minuto ves en qué mes quedas libre.';
   // etapas
   const by=id=>S.deudas.find(x=>x.id===id);const steps=S.pasos?.items||[];
   const tarjetas=S.deudas.filter(x=>/tarjeta/i.test(x.tipo||''));
@@ -346,8 +346,12 @@ $('#wNext').addEventListener('click',async()=>{
   gastosDraft=null;saveHist();
   // js/interfaz.js entrega el plan con la transición circular; sin ella, se cierra el asistente sin más.
   if(window.PLD&&PLD.entregarPlan)PLD.entregarPlan();else{$('#wiz').hidden=true;toast('¡Listo! Este es tu plan')}});
-/* Primera visita (sin datos): se muestra la portada; el asistente se abre desde su botón. */
-function maybeWiz(){if(!(S.ready.d&&S.ready.c))return;document.body.classList.toggle('modo-portada',!S.deudas.length&&!S.pres?.listo)}
+/* La portada se muestra al abrir el enlace (y siempre si no hay datos).
+   Una vez la persona entra a su plan, las recargas de esa sesión la dejan en la app. */
+function maybeWiz(){if(!(S.ready.d&&S.ready.c))return;const nuevo=!S.deudas.length&&!S.pres?.listo;
+  if(!maybeWiz.ini){maybeWiz.ini=true;let entro=false;try{entro=sessionStorage.getItem('pld-entro')==='1'}catch(e){}if(nuevo||!entro)document.body.classList.add('modo-portada')}
+  else if(nuevo&&$('#wiz').hidden)document.body.classList.add('modo-portada');
+  document.body.classList.toggle('con-datos',!nuevo)}
 /* respaldo */
 const marcarRespaldo=()=>{try{localStorage.setItem('pld-respaldo:'+PERFILES.clave(),todayISO())}catch(e){}document.dispatchEvent(new CustomEvent('pld:respaldo'))};
 const respaldoBlob=()=>new Blob([localStorage.getItem(PERFILES.clave())||'{}'],{type:'application/json'});

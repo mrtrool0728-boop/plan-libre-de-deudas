@@ -80,8 +80,26 @@ function portal(desde,hacia,listo){
   let a=null;if(desde){desde.style.transformOrigin='50% '+oy;a=desde.animate([{transform:'scale(1)',filter:'brightness(1)'},{transform:'scale(1.06)',offset:.25},{transform:'scale(1.9)',filter:'brightness(.5)'}],{duration:1150,easing:ESC})}
   setTimeout(()=>{if(a)a.cancel();if(desde&&desde.id!=='portada')desde.hidden=true;listo&&listo()},1150)}
 
-// Portada → asistente
-$$('[data-armar]').forEach(b=>b.addEventListener('click',()=>{PLD.openWiz();const w=$('#wiz');w.hidden=true;portal($('#portada'),w,()=>setTimeout(()=>$('#wNombre').focus(),30))}));
+const marcarEntrada=()=>{try{sessionStorage.setItem('pld-entro','1')}catch(e){}};
+// Portada → tu plan (si ya hay datos): la app aparece por el círculo mientras la portada se acerca.
+function entrarApp(){
+  const pt=$('#portada'),app=$('#app'),y=scrollY;marcarEntrada();
+  if(reduce||!app.animate){document.body.classList.remove('modo-portada');scrollTo(0,0);PLD.showTab('resumen');return}
+  Object.assign(pt.style,{position:'fixed',top:-y+'px',left:'0',right:'0',zIndex:'44'});
+  document.body.classList.remove('modo-portada');document.body.classList.add('entrando');scrollTo(0,0);PLD.showTab('resumen');
+  const cy=innerHeight/2;app.style.transformOrigin='50% '+cy+'px';pt.style.transformOrigin='50% '+(y+cy)+'px';
+  app.animate([{clipPath:`circle(0% at 50% ${cy}px)`,transform:'scale(1.25)'},{clipPath:`circle(7% at 50% ${cy}px)`,transform:'scale(1.2)',offset:.25},{clipPath:`circle(150% at 50% ${cy}px)`,transform:'scale(1)'}],{duration:1150,easing:ESC});
+  const a=pt.animate([{transform:'scale(1)',filter:'brightness(1)'},{transform:'scale(1.06)',offset:.25},{transform:'scale(1.9)',filter:'brightness(.5)'}],{duration:1150,easing:ESC});
+  a.onfinish=()=>{a.cancel();pt.removeAttribute('style');document.body.classList.remove('entrando')}}
+// Portada → asistente (sin datos) o → tu plan (con datos)
+$$('[data-armar]').forEach(b=>{b.dataset.txt=b.textContent;b.addEventListener('click',()=>{
+  if(document.body.classList.contains('con-datos'))return entrarApp();
+  PLD.openWiz();const w=$('#wiz');w.hidden=true;portal($('#portada'),w,()=>setTimeout(()=>$('#wNombre').focus(),30))})});
+PLD.hooks.push(()=>{const con=document.body.classList.contains('con-datos');$$('[data-armar]').forEach(b=>{b.textContent=con?'Ver mi plan':b.dataset.txt})});
+// Logo de la app → volver a la portada
+const irPortada=()=>{document.body.classList.add('modo-portada');scrollTo(0,0)};
+$('#irPortada').addEventListener('click',irPortada);
+$('#irPortada').addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();irPortada()}});
 
 // Asistente → entrega del plan (la llama js/app.js al guardar el asistente)
 PLD.entregarPlan=function(){
@@ -103,7 +121,7 @@ PLD.entregarPlan=function(){
     setTimeout(()=>{PLD.countTo($('#entAh'),ah,PLD.money);PLD.countTo($('#entMm'),mm,v=>Math.round(v)+(Math.round(v)===1?' mes':' meses'))},400+orden.length*600)});
 };
 $('#entregaOk').addEventListener('click',()=>{const e=$('#entrega');
-  const fin=()=>{e.hidden=true;e.classList.remove('vivo');PLD.showTab('resumen');scrollTo(0,0)};
+  const fin=()=>{e.hidden=true;e.classList.remove('vivo');document.body.classList.remove('modo-portada');marcarEntrada();PLD.showTab('resumen');scrollTo(0,0)};
   if(reduce||!e.animate)return fin();e.animate([{opacity:1,transform:'scale(1)'},{opacity:0,transform:'scale(1.04)'}],{duration:350,easing:'ease-in'}).onfinish=fin});
 
 /* ---------- Portada: datos reales y animación al bajar ---------- */

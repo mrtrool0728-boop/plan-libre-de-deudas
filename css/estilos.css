@@ -405,7 +405,9 @@ h2{font-weight:600}
 /* ---------- Modo portada / modo app ---------- */
 #portada{display:none}
 body.modo-portada #portada{display:block}
-body.modo-portada .appbar,body.modo-portada .wrap{display:none}
+body.modo-portada #app{display:none}
+#app{position:relative;z-index:45;background:var(--bg)}
+body:not(.entrando) #app{z-index:auto}
 
 /* ---------- Portada ---------- */
 .pt-hero{position:relative;background:var(--bar);color:#fff;border-radius:0 0 36px 36px;padding:0 0 64px}
