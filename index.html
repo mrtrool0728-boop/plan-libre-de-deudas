@@ -11,7 +11,7 @@
 
 <!-- App instalable (PWA) -->
 <link rel="manifest" href="manifest.webmanifest">
-<meta name="theme-color" content="#0F4D36">
+<meta name="theme-color" content="#1E4D45">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -22,7 +22,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;650;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Public+Sans:wght@400;500;600;650;700&display=swap">
 <link rel="stylesheet" href="css/estilos.css">
 <!-- Perfil y tema antes de pintar la página (evita parpadeo) -->
 <script src="js/perfiles.js"></script>
@@ -58,12 +58,96 @@
   <symbol id="i-share" viewBox="0 0 24 24"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" x2="12" y1="2" y2="15"/></symbol>
   <symbol id="i-gift" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5C9 3 12 5 12 8c0-3 3-5 4.5-5a2.5 2.5 0 0 1 0 5"/></symbol>
   <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3l1.9 5.8L20 10.7l-5 3.7 1.9 5.9L12 16.6l-4.9 3.7L9 14.4l-5-3.7 6.1-1.9z"/></symbol>
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></symbol>
+  <symbol id="i-list" viewBox="0 0 24 24"><path d="M9 6h11"/><path d="M9 12h11"/><path d="M9 18h11"/><path d="M4 6h.01"/><path d="M4 12h.01"/><path d="M4 18h.01"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></symbol>
+  <symbol id="i-chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></symbol>
   <symbol id="i-piggy" viewBox="0 0 24 24"><path d="M11 17h3v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-3a3.16 3.16 0 0 0 2-2h1a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1h-1a5 5 0 0 0-2-4V3a4 4 0 0 0-3.2 1.6l-.3.4H11a6 6 0 0 0-6 6v1a5 5 0 0 0 2 4v3a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1z"/><path d="M16 10h.01"/><path d="M2 8v1a2 2 0 0 0 2 2h1"/></symbol>
 </svg>
+<!-- PORTADA: primera visita, sin datos -->
+<div id="portada">
+  <section class="pt-hero">
+    <div class="pt-in">
+      <nav class="pt-nav" aria-label="Portada">
+        <span class="pt-marca"><svg class="logo" viewBox="0 0 32 32" aria-hidden="true"><rect x="1" y="1" width="30" height="30" rx="7"/><path d="M8 11h16M8 16h16M8 21h9"/><path d="m19 21 2.5 2.5L26 18"/></svg>Plan Libre de Deudas</span>
+        <span class="pt-links"><a href="#pt-pasos">Cómo funciona</a><a href="#pt-herramientas">Herramientas</a><button class="btn cta" type="button" data-armar>Armar mi plan</button></span>
+      </nav>
+      <div class="pt-grid">
+        <div class="pt-copy">
+          <h1>Tus deudas no tienen por qué ganarte</h1>
+          <p class="pt-lead">Anota lo que debes y mira en qué mes quedas libre, qué pagar primero y cuánto te ahorras en intereses.</p>
+          <div class="pt-acciones">
+            <button class="btn cta big" type="button" data-armar>Armar mi plan gratis</button>
+            <a class="pt-ver" href="#pt-pasos"><span class="pt-play" aria-hidden="true"><svg class="i"><use href="#i-play"/></svg></span>Ver cómo funciona</a>
+          </div>
+          <p class="pt-confianza"><svg class="i" aria-hidden="true"><use href="#i-shield"/></svg>Gratis, sin registro y tus datos no salen de tu dispositivo</p>
+          <dl class="pt-stats">
+            <div><dt>$ 0</dt><dd>cuesta usarla</dd></div>
+            <div><dt>3 pasos</dt><dd>para tener tu plan</dd></div>
+            <div><dt>100%</dt><dd>privado, sin servidor</dd></div>
+          </dl>
+        </div>
+        <svg class="pt-arte" viewBox="0 0 260 200" role="img" aria-label="Dos tarjetas de crédito con un sello de pagada">
+          <circle cx="150" cy="100" r="86" fill="#2A5E55"/>
+          <g transform="rotate(-12 120 92)"><rect x="40" y="50" width="160" height="100" rx="12" fill="#F2A43A"/><rect x="40" y="72" width="160" height="16" fill="#C97F1C"/></g>
+          <g transform="rotate(6 150 112)"><rect x="70" y="72" width="168" height="106" rx="12" fill="#14302B"/><rect x="86" y="98" width="26" height="20" rx="4" fill="#E9C46A"/><text x="86" y="148" font-size="12" fill="#CFE5DF" font-family="ui-monospace,monospace" letter-spacing="1">•••• •••• •••• 4821</text><text x="86" y="166" font-size="9" fill="#9CC3B8" letter-spacing="1">YEISON L.</text><circle cx="206" cy="162" r="7" fill="#F2A43A"/><circle cx="216" cy="162" r="7" fill="#E9C46A" opacity=".85"/></g>
+          <g class="pt-sello" transform="rotate(-8 205 54)"><rect x="166" y="36" width="80" height="30" rx="5" fill="none" stroke="#7FD4B4" stroke-width="2.5"/><text x="176" y="57" font-size="15" font-weight="700" fill="#7FD4B4">PAGADA</text></g>
+          <path d="M30 34 l3 8 8 3 -8 3 -3 8 -3 -8 -8 -3 8 -3z" fill="#F2C27A"/>
+          <circle cx="244" cy="126" r="3" fill="#F2C27A"/>
+        </svg>
+      </div>
+    </div>
+    <a class="pt-bajar" href="#pt-razones" aria-label="Bajar a las razones"><svg class="i" aria-hidden="true"><use href="#i-chev"/></svg></a>
+  </section>
+
+  <section class="pt-sec" id="pt-razones">
+    <h2>3 razones para usarla</h2>
+    <div class="pt-tres">
+      <article class="rz"><span class="rz-ic" aria-hidden="true"><svg class="i"><use href="#i-list"/></svg></span><h3>Sabes qué pagar primero</h3><p>El orden que más intereses te ahorra, deuda por deuda.</p></article>
+      <article class="rz"><span class="rz-ic" aria-hidden="true"><svg class="i"><use href="#i-cal"/></svg></span><h3>Ves tu fecha de salida</h3><p>El mes exacto en que quedas libre, con y sin abonos extra.</p></article>
+      <article class="rz"><span class="rz-ic" aria-hidden="true"><svg class="i"><use href="#i-lock"/></svg></span><h3>Tus datos son tuyos</h3><p>Nada se envía a ningún servidor. Ni siquiera a nosotros.</p></article>
+    </div>
+  </section>
+
+  <section class="pt-sec" id="pt-pasos">
+    <h2>Sigue estos 3 pasos</h2>
+    <div class="pt-pasos">
+      <div>
+        <div class="pt-riel" aria-hidden="true"><i></i></div>
+        <ol class="pt-lista">
+          <li class="paso"><span class="pn">01</span><div><b>Anota tus deudas</b><span>Saldo, tasa y cuota, como salen en el extracto.</span></div><span class="flecha" aria-hidden="true"><svg class="i"><use href="#i-arrow"/></svg></span></li>
+          <li class="paso"><span class="pn">02</span><div><b>Recibe tu plan</b><span>Qué pagar primero y en qué mes quedas libre.</span></div><span class="flecha" aria-hidden="true"><svg class="i"><use href="#i-arrow"/></svg></span></li>
+          <li class="paso"><span class="pn">03</span><div><b>Registra y avanza</b><span>Cada pago baja tu deuda y te acerca a la meta.</span></div><span class="flecha" aria-hidden="true"><svg class="i"><use href="#i-arrow"/></svg></span></li>
+        </ol>
+      </div>
+      <div class="pt-pildora"><svg viewBox="0 0 100 130" role="img" aria-label="Tarjeta de crédito cortada en dos"><g transform="rotate(-8 50 45)"><rect x="12" y="20" width="76" height="48" rx="7" fill="#14302B"/><rect x="20" y="34" width="13" height="10" rx="2" fill="#E9C46A"/></g><g transform="rotate(10 50 92)"><rect x="12" y="74" width="76" height="40" rx="7" fill="#F2A43A"/></g><path d="M6 70 L94 66" stroke="#fff" stroke-width="1.5" stroke-dasharray="4 3"/></svg></div>
+      <dl class="pt-cifras">
+        <div><dt id="ptUsura">—</dt><dd id="ptUsuraM">tasa de usura vigente</dd></div>
+        <div><dt id="ptEntidades">—</dt><dd>entidades comparadas en compra de cartera</dd></div>
+        <div><dt>0</dt><dd>multas por abonar a capital (Ley 1555 de 2012)</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="pt-oscura" id="pt-herramientas">
+    <h2>Herramientas incluidas</h2>
+    <div class="pt-tres">
+      <article class="hc"><svg class="i" aria-hidden="true"><use href="#i-spark"/></svg><h3>Simulador ¿y si…?</h3><p>Prueba abonos extra o tu prima y mira cuánto adelantas.</p></article>
+      <article class="hc"><svg class="i" aria-hidden="true"><use href="#i-bank"/></svg><h3>Compra de cartera</h3><p>Compara tus deudas con las tasas que reportan las entidades.</p></article>
+      <article class="hc"><svg class="i" aria-hidden="true"><use href="#i-bell"/></svg><h3>Recordatorios</h3><p>Tus fechas de pago en el calendario del celular.</p></article>
+    </div>
+    <div class="pt-cierre"><button class="btn cta big" type="button" data-armar>Armar mi plan gratis</button></div>
+  </section>
+  <footer class="pt-pie"><p>Herramienta educativa y gratuita. No somos una entidad financiera ni negociamos con bancos. Los cálculos son estimados según los datos que ingresas.</p></footer>
+</div>
+
+<!-- APP: ya hay datos -->
 <header class="appbar">
   <div class="appbar-in">
     <div class="brand">
-      <svg class="logo" viewBox="0 0 32 32" aria-hidden="true"><rect x="1" y="1" width="30" height="30" rx="3"/><path d="M8 11h16M8 16h16M8 21h9"/><path d="m19 21 2.5 2.5L26 18"/></svg>
+      <svg class="logo" viewBox="0 0 32 32" aria-hidden="true"><rect x="1" y="1" width="30" height="30" rx="7"/><path d="M8 11h16M8 16h16M8 21h9"/><path d="m19 21 2.5 2.5L26 18"/></svg>
       <span class="brandname">Plan Libre de Deudas</span>
     </div>
     <div class="row">
@@ -72,41 +156,10 @@
       <button class="btn iconbtn" id="btnMenu" type="button" aria-label="Más opciones" aria-haspopup="dialog"><svg class="i" aria-hidden="true"><use href="#i-more"/></svg></button>
     </div>
   </div>
-</header>
-
-<div class="wrap">
-  <section class="hero2" aria-labelledby="heroTitle">
-    <div class="hero-copy">
-      <h1 id="heroTitle"><span id="heroName">Vas</span> camino a cero deudas</h1>
-      <p class="lead" id="heroLead">Cargando tu plan…</p>
-      <div class="row ctas">
-        <button class="btn primary big" type="button" data-open-pago><svg class="i" aria-hidden="true"><use href="#i-plus"/></svg>Registrar pago</button>
-        <button class="btn big" type="button" data-goto="plan">Ver mi plan</button>
-      </div>
-    </div>
-    <div class="casillas" role="group" aria-label="Resumen de tus deudas">
-      <div class="folio"><span>Resumen de tus deudas</span><span id="heroDate">Tu programa personal</span></div>
-      <div class="casilla total">
-        <span class="cn" aria-hidden="true">01</span><span class="cl">Deuda total hoy</span>
-        <b class="cv num" id="kTotal">—</b>
-        <div class="celdas" role="img" aria-label="Avance del plan"><div class="bar"><i id="kBar" style="width:0%"></i></div></div>
-        <span class="cs"><b id="kAvance">—</b> pagado · <span id="kTotalS">&nbsp;</span></span>
-      </div>
-      <div class="casilla"><span class="cn" aria-hidden="true">02</span><span class="cl">Cuotas al mes</span><b class="cv num" id="kCuotas">—</b><span class="cs" id="kCuotasS"></span></div>
-      <div class="casilla"><span class="cn" aria-hidden="true">03</span><span class="cl">Libre de deudas</span><b class="cv" id="kLibre">—</b><span class="cs" id="kLibreS"></span></div>
-      <div class="casilla"><span class="cn" aria-hidden="true">04</span><span class="cl">Ahorro en intereses</span><b class="cv num pos" id="kSaveV">—</b><span class="cs" id="kSave">con el plan</span></div>
-      <div class="casilla"><span class="cn" aria-hidden="true">05</span><span class="cl">Próximo pago</span><b class="cv" id="kNext">—</b><span class="cs" id="kNextS"></span></div>
-    </div>
-  </section>
-  <section class="stages glass" aria-label="Etapas del programa">
-    <div class="row between"><h2><svg class="i" aria-hidden="true"><use href="#i-flag"/></svg>Tu programa en 5 etapas</h2><span class="pill info" id="stageNow"></span></div>
-    <ol class="stagelist" id="stages"></ol>
-  </section>
-
-  <nav class="tabs glass" role="tablist">
-    <button role="tab" data-tab="resumen" aria-selected="true"><svg class="i" aria-hidden="true"><use href="#i-dash"/></svg><span class="t">Resumen</span></button>
-    <button role="tab" data-tab="deudas" aria-selected="false"><svg class="i" aria-hidden="true"><use href="#i-card"/></svg><span class="t">Deudas</span></button>
-    <button role="tab" data-tab="plan" aria-selected="false"><svg class="i" aria-hidden="true"><use href="#i-down"/></svg><span class="t">Plan<span class="dk"> de pagos</span></span></button>
+  <nav class="tabs" role="tablist">
+    <button role="tab" data-tab="resumen" aria-selected="true"><svg class="i" aria-hidden="true"><use href="#i-home"/></svg><span class="t">Inicio</span></button>
+    <button role="tab" data-tab="deudas" aria-selected="false"><svg class="i" aria-hidden="true"><use href="#i-list"/></svg><span class="t">Deudas</span></button>
+    <button role="tab" data-tab="plan" aria-selected="false"><svg class="i" aria-hidden="true"><use href="#i-cal"/></svg><span class="t">Plan<span class="dk"> de pagos</span></span></button>
     <button role="tab" data-tab="pagos" aria-selected="false"><svg class="i" aria-hidden="true"><use href="#i-receipt"/></svg><span class="t">Pagos</span></button>
     <button role="tab" class="extra" data-tab="cartera" aria-selected="false"><svg class="i" aria-hidden="true"><use href="#i-bank"/></svg><span class="t">Compra de cartera</span></button>
     <button role="tab" class="extra" data-tab="presupuesto" aria-selected="false"><svg class="i" aria-hidden="true"><use href="#i-pie"/></svg><span class="t">Presupuesto</span></button>
@@ -114,57 +167,62 @@
     <button role="tab" class="extra" data-tab="logros" aria-selected="false"><svg class="i" aria-hidden="true"><use href="#i-trophy"/></svg><span class="t">Logros</span></button>
     <button class="masbtn" type="button" id="btnMas" aria-haspopup="dialog"><svg class="i" aria-hidden="true"><use href="#i-grid"/></svg><span class="t">Más</span></button>
   </nav>
+</header>
 
-  <!-- RESUMEN -->
+<div class="wrap">
+  <!-- INICIO -->
   <section class="panel" data-panel="resumen">
-    <div class="callout warn row between" id="bkAviso" hidden>
-      <span id="bkAvisoTxt">Hace tiempo no guardas un respaldo de tus datos.</span>
-      <button class="btn" type="button" id="bkAvisoBtn"><svg class="i" aria-hidden="true"><use href="#i-share"/></svg>Guardar respaldo</button>
-    </div>
-    <div class="glass card">
-      <div class="row between"><h2><svg class="i" aria-hidden="true"><use href="#i-wallet"/></svg>A dónde se va tu sueldo</h2><span id="salaryPill"></span></div>
-      <div class="salary" id="salaryBar" role="img" aria-label="Reparto del ingreso mensual"></div>
-      <div class="keyrow" id="salaryKey"></div>
-    </div>
-    <div class="savebanner">
-      <p>Con el plan pagas <b id="bnSave">—</b> <span id="bnText">menos en intereses que pagando solo los mínimos.</span> Si abonas más cada mes, la fecha se adelanta.</p>
-      <button class="btn" type="button" data-goto="plan">Ajustar mi abono extra</button>
-    </div>
-    <div class="grid3">
-      <div class="glass card">
-        <h2><svg class="i" aria-hidden="true"><use href="#i-pie"/></svg>Cómo está repartida tu deuda</h2>
-        <div class="donutwrap"><div class="donut" id="donut"></div><div class="leg" id="donutLeg"></div></div>
-      </div>
-      <div class="glass card">
-        <h2><svg class="i" aria-hidden="true"><use href="#i-flame"/></svg>Lo que te cobran cada mes sin bajar la deuda</h2>
-        <p class="small muted">Intereses más seguros y cuota de manejo. Es plata que se pierde: por eso se atacan primero las tarjetas.</p>
-        <div class="hbars" id="burn"></div>
-        <div class="due" style="font-weight:700;border-top:1px solid var(--line);border-bottom:0"><span>Total al mes</span><span class="num" id="burnTotal">—</span></div>
-      </div>
-    </div>
-    <div class="glass card">
-      <div class="row between"><h2><svg class="i" aria-hidden="true"><use href="#i-down"/></svg>Cómo baja tu deuda con el plan</h2>
-        <div class="legend" id="areaLeg"></div></div>
-      <div class="chartbox" id="area"></div>
-      <p class="small muted" id="chartNote"></p>
-    </div>
-    <div class="grid2">
-      <div class="glass card">
-        <div class="row between"><h2><svg class="i" aria-hidden="true"><use href="#i-cal"/></svg>Próximos pagos</h2><button class="btn primary" type="button" data-open-pago><svg class="i" aria-hidden="true"><use href="#i-plus"/></svg>Registrar pago</button></div>
-        <div id="dueList"><p class="empty">Aquí aparecen tus fechas de pago cuando carguen las deudas.</p></div>
-        <div class="remind">
-          <p class="small muted">Que no se te pase ninguna fecha:</p>
-          <div class="row">
-            <button class="btn" type="button" id="btnCal"><svg class="i" aria-hidden="true"><use href="#i-cal"/></svg>Agregar a mi calendario</button>
-            <button class="btn" type="button" id="btnAvisos"><svg class="i" aria-hidden="true"><use href="#i-bell"/></svg><span id="avisosTxt">Avisarme al abrir la app</span></button>
+    <div class="inicio">
+      <div class="inicio-main">
+        <div class="titular">
+          <h1 id="heroTitle">Cargando tu plan…</h1>
+          <p class="lead" id="heroLead"></p>
+        </div>
+        <div class="callout warn row between" id="bkAviso" hidden>
+          <span id="bkAvisoTxt">Hace tiempo no guardas un respaldo de tus datos.</span>
+          <button class="btn" type="button" id="bkAvisoBtn"><svg class="i" aria-hidden="true"><use href="#i-share"/></svg>Guardar respaldo</button>
+        </div>
+        <div class="casillas" role="group" aria-label="Resumen de tus deudas">
+          <div class="folio"><span>Resumen de tus deudas</span><span id="heroDate"></span></div>
+          <div class="casilla total">
+            <span class="cn" aria-hidden="true">01</span><span class="cl">Deuda total hoy</span>
+            <b class="cv num" id="kTotal">—</b>
+            <div class="celdas" role="img" aria-label="Avance del plan"><div class="bar"><i id="kBar" style="width:0%"></i></div></div>
+            <span class="cs"><b id="kAvance">—</b> pagado · <span id="kTotalS">&nbsp;</span></span>
           </div>
+          <div class="casilla"><span class="cn" aria-hidden="true">02</span><span class="cl">Cuotas al mes</span><b class="cv num" id="kCuotas">—</b><span class="cs" id="kCuotasS"></span></div>
+          <div class="casilla"><span class="cn" aria-hidden="true">03</span><span class="cl">Intereses al mes</span><b class="cv num warn" id="kInt">—</b><span class="cs" id="kIntS"></span></div>
+          <div class="casilla"><span class="cn" aria-hidden="true">04</span><span class="cl">Abono extra</span><b class="cv num" id="kExtra">—</b><span class="cs" id="kExtraS"></span></div>
+        </div>
+        <div class="glass card">
+          <div class="row between"><h2>Cómo baja tu deuda</h2><div class="legend" id="areaLeg"></div></div>
+          <div class="chartbox" id="area"></div>
+          <p class="small muted" id="chartNote"></p>
         </div>
       </div>
-      <div class="glass card">
-        <div class="row between"><h2><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>Pasos del plan</h2><span class="pill info" id="stepsCount"></span></div>
-        <div class="bar"><i id="stepsBar" style="width:0%"></i></div>
-        <ul class="steps" id="steps"><li class="empty">Cargando pasos…</li></ul>
-      </div>
+      <aside class="inicio-side" aria-label="Lo que toca hacer">
+        <div class="glass card proximo">
+          <p class="small muted" id="kNextS">Próximo pago</p>
+          <div class="row between pn-fila"><b id="kNext">—</b><b class="num" id="kNextV"></b></div>
+          <p class="small muted" id="kNextD"></p>
+          <button class="btn primary big" type="button" data-open-pago><svg class="i" aria-hidden="true"><use href="#i-plus"/></svg>Registrar pago</button>
+        </div>
+        <div class="glass card">
+          <h2>Calendario de pagos</h2>
+          <div id="dueList"><p class="empty">Aquí aparecen tus fechas de pago.</p></div>
+          <div class="remind">
+            <div class="row">
+              <button class="btn" type="button" id="btnCal"><svg class="i" aria-hidden="true"><use href="#i-cal"/></svg>Agregar a mi calendario</button>
+              <button class="btn" type="button" id="btnAvisos"><svg class="i" aria-hidden="true"><use href="#i-bell"/></svg><span id="avisosTxt">Avisarme al abrir la app</span></button>
+            </div>
+          </div>
+        </div>
+        <div class="glass card">
+          <h2>Este mes abona a</h2>
+          <div id="abonaA"><p class="small muted">Calculando…</p></div>
+          <button class="btn ghost" type="button" data-goto="plan">Ajustar mi abono extra</button>
+        </div>
+      </aside>
     </div>
   </section>
 
@@ -172,11 +230,21 @@
   <section class="panel" data-panel="deudas" hidden>
     <div class="row between">
       <p class="muted small">De la más cara a la más barata. Actualiza el saldo cada vez que llegue un extracto.</p>
-      <div class="row">
-                <button class="btn" type="button" id="btnNueva"><svg class="i" aria-hidden="true"><use href="#i-plus"/></svg>Otra deuda</button>
-      </div>
+      <button class="btn" type="button" id="btnNueva"><svg class="i" aria-hidden="true"><use href="#i-plus"/></svg>Otra deuda</button>
     </div>
     <div class="dgrid" id="debtList"><p class="empty">Cargando deudas…</p></div>
+    <div class="grid3">
+      <div class="glass card">
+        <h2>Cómo está repartida tu deuda</h2>
+        <div class="donutwrap"><div class="donut" id="donut"></div><div class="leg" id="donutLeg"></div></div>
+      </div>
+      <div class="glass card">
+        <h2>Lo que te cobran cada mes sin bajar la deuda</h2>
+        <p class="small muted">Intereses más seguros y cuota de manejo. Es plata que se pierde: por eso se atacan primero las tarjetas.</p>
+        <div class="hbars" id="burn"></div>
+        <div class="due" style="font-weight:700;border-top:1px solid var(--line);border-bottom:0"><span>Total al mes</span><span class="num" id="burnTotal">—</span></div>
+      </div>
+    </div>
   </section>
 
   <div class="wiz sheet" id="debtForm" hidden role="dialog" aria-modal="true" aria-labelledby="debtFormTitle">
@@ -213,6 +281,11 @@
     <div class="grid3">
       <div class="glass card"><h2><svg class="i" aria-hidden="true"><use href="#i-flag"/></svg>Tu camino a cero deudas</h2><ul class="timeline" id="payoffList"></ul></div>
       <div class="glass card"><h2><svg class="i" aria-hidden="true"><use href="#i-piggy"/></svg>Lo que ganas con el plan</h2><div id="compare"></div></div>
+    </div>
+    <div class="glass card">
+      <div class="row between"><h2>Pasos del plan</h2><span class="pill info" id="stepsCount"></span></div>
+      <div class="bar"><i id="stepsBar" style="width:0%"></i></div>
+      <ul class="steps" id="steps"><li class="empty">Cargando pasos…</li></ul>
     </div>
     <div class="glass card" id="simCard">
       <div class="row between"><h2><svg class="i" aria-hidden="true"><use href="#i-spark"/></svg>¿Y si…? Prueba otro escenario</h2><span class="pill info">No cambia tu plan</span></div>
@@ -276,6 +349,11 @@
 
   <!-- PRESUPUESTO -->
   <section class="panel" data-panel="presupuesto" hidden>
+    <div class="glass card">
+      <div class="row between"><h2>A dónde se va tu sueldo</h2><span id="salaryPill"></span></div>
+      <div class="salary" id="salaryBar" role="img" aria-label="Reparto del ingreso mensual"></div>
+      <div class="keyrow" id="salaryKey"></div>
+    </div>
     <div class="grid2">
       <div class="glass card">
         <h2><svg class="i" aria-hidden="true"><use href="#i-wallet"/></svg>Ingreso</h2>
@@ -363,6 +441,10 @@
   </section>
   <!-- LOGROS -->
   <section class="panel" data-panel="logros" hidden>
+    <section class="stages glass" aria-label="Etapas del programa">
+      <div class="row between"><h2>Tu programa en 5 etapas</h2><span class="pill info" id="stageNow"></span></div>
+      <ol class="stagelist" id="stages"></ol>
+    </section>
     <div class="glass card">
       <div class="row between"><h2><svg class="i" aria-hidden="true"><use href="#i-flame"/></svg>Tu racha</h2><span class="pill info" id="lgCuenta"></span></div>
       <div class="racha"><span class="huge2" id="lgRacha">0</span><p id="lgRachaTxt">Registra tus pagos cada mes para construir tu racha.</p></div>
@@ -376,14 +458,15 @@
 
   <footer class="footer"><p><b>Plan Libre de Deudas</b> es una herramienta educativa y gratuita. No es asesoría financiera: antes de tomar un crédito o una compra de cartera, compara condiciones y lee el contrato.</p><p>Tus datos no salen de tu dispositivo.</p></footer>
 </div>
-<div class="wiz" id="wiz" hidden role="dialog" aria-modal="true" aria-labelledby="wizTitle">
+<div class="wiz escena" id="wiz" hidden role="dialog" aria-modal="true" aria-labelledby="wizTitle">
+  <div class="esc-marca"><svg class="logo" viewBox="0 0 32 32" aria-hidden="true"><rect x="1" y="1" width="30" height="30" rx="7"/><path d="M8 11h16M8 16h16M8 21h9"/><path d="m19 21 2.5 2.5L26 18"/></svg>Arma tu plan</div>
   <div class="wizcard">
     <div class="row between"><span class="small muted">Paso <span class="wizstep num" id="wizStep">01/03</span></span><span></span></div>
     <div class="bar"><i id="wizBar" style="width:33%"></i></div>
     <div class="wizpane" data-w="1">
       <h2 id="wizTitle">Hola. ¿Cómo te llamas y cuánto te llega al mes?</h2>
       <p class="small muted">Todo lo que escribas se guarda solo en este dispositivo. Nadie más lo ve.</p>
-      <label class="f">Tu nombre<input id="wNombre" type="text" autocomplete="given-name" placeholder="Ej. Laura"></label>
+      <label class="f">Tu nombre<input id="wNombre" type="text" autocomplete="given-name" placeholder="Ej. Yeison"></label>
       <label class="f">Lo que te llega al mes, neto ($)<input id="wIngreso" class="numin money" type="text" inputmode="numeric" autocomplete="off" placeholder="Ej. 2.500.000"></label>
     </div>
     <div class="wizpane" data-w="2" hidden>
@@ -450,6 +533,15 @@
     <p class="small muted">Cada perfil tiene sus propias deudas, pagos y presupuesto. Sirve si otra persona de tu casa quiere armar su plan en este mismo celular.</p>
     <ul class="wizlist" id="perfilesList"></ul>
     <div class="row"><input id="perfilNuevo" type="text" placeholder="Nombre del nuevo perfil" aria-label="Nombre del nuevo perfil" style="flex:1"><button class="btn primary" type="button" id="perfilCrear">Crear</button></div>
+  </div>
+</div>
+<!-- Entrega del plan al terminar el asistente (lo llena js/interfaz.js) -->
+<div class="escena entrega" id="entrega" hidden role="dialog" aria-modal="true" aria-labelledby="entregaT">
+  <div class="ent-in">
+    <div class="ent-cab"><span>Tu plan está listo</span><h2 id="entregaT">—</h2></div>
+    <ol class="ent-lista" id="entregaLista"></ol>
+    <div class="ent-res" id="entregaRes"></div>
+    <div class="ent-acc"><button class="btn cta big" type="button" id="entregaOk">Ir a mi inicio</button></div>
   </div>
 </div>
 <div class="celebra" id="celebra" hidden role="status" aria-live="polite">

@@ -64,10 +64,11 @@ function countTo(el,val,f){if(!el)return;const from=+el.dataset.v||0;el.dataset.
 $$('[data-goto]').forEach(b=>b.addEventListener('click',()=>{showTab(b.dataset.goto);document.querySelector('nav.tabs').scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'})}));
 function renderHero(){
   const p=plan(),b=base(),t=totalSaldo(),ah=Math.max(0,b.interes-p.interes);
-  {const nm=(S.pres?.nombre||'').trim();$('#heroName').textContent=nm?nm+', vas':'Vas'}const d=new Date();$('#heroDate').textContent='Tu programa personal · '+MESES[d.getMonth()]+' '+d.getFullYear();
-  countTo($('#kTotal'),t,money);countTo($('#kSaveV'),ah,money);countTo($('#bnSave'),ah,money);
-  $('#heroLead').innerHTML=t>0?`Debes <b>${money(t)}</b> en ${activas().length===1?'1 deuda':activas().length+' deudas'}. Siguiendo el plan quedas libre en <b>${p.fin?mlabel(p.fin):'—'}</b> y te ahorras <b>${money(ah)}</b> en intereses.`:S.deudas.length?'<b>¡Lo lograste!</b> Ya no tienes deudas. Ahora lo que pagabas en cuotas puede ir a tu ahorro.':'Agrega tus deudas y en un minuto ves en qué mes quedas libre y cuánto te ahorras en intereses.';
-  $('#bnText').textContent=b.meses>p.meses?`menos en intereses que pagando solo los mínimos, y terminas ${b.meses-p.meses} meses antes.`:'menos en intereses que pagando solo los mínimos.';
+  const nm=(S.pres?.nombre||'').trim(),d=new Date();$('#heroDate').textContent='Corte: '+MESES[d.getMonth()]+' '+d.getFullYear();
+  const ini=totalIni(),av=ini>0?Math.round(Math.max(0,(ini-t)/ini)*100):0;
+  countTo($('#kTotal'),t,money);
+  $('#heroTitle').textContent=t>0?`${nm?nm+', q':'Q'}uedas libre en ${p.fin?mlabel(p.fin):'—'}`:S.deudas.length?`${nm?nm+', ¡l':'¡L'}o lograste!`:'Agrega tus deudas para ver tu plan';
+  $('#heroLead').innerHTML=t>0?`Faltan <b>${p.meses} ${p.meses===1?'mes':'meses'}</b>. Llevas <b>${av}%</b> pagado y te ahorras <b>${money(ah)}</b> en intereses${b.meses>p.meses?` frente a pagar solo los mínimos, terminando ${b.meses-p.meses} meses antes`:''}.`:S.deudas.length?'Ya no tienes deudas. Lo que pagabas en cuotas ahora puede ir a tu ahorro.':'Anota tus deudas en la pestaña Deudas y en un minuto ves en qué mes quedas libre.';
   // etapas
   const by=id=>S.deudas.find(x=>x.id===id);const steps=S.pasos?.items||[];
   const tarjetas=S.deudas.filter(x=>/tarjeta/i.test(x.tipo||''));
@@ -86,17 +87,18 @@ function renderHero(){
 function renderKpis(){
   const t=totalSaldo(),ini=totalIni(),av=ini>0?Math.max(0,(ini-t)/ini):0;
   
-  $('#kTotalS').textContent=`${activas().length} deudas activas · empezaste con ${money(ini)}`;
+  $('#kTotalS').textContent=`de ${money(ini)} al empezar`;
   $('#kAvance').textContent=Math.round(av*100)+'%';
   $('#kBar').style.width=(av*100).toFixed(1)+'%';
-  const p=plan(),b=base();
-  $('#kSave').textContent=p.meses&&b.meses>p.meses?`y terminas ${b.meses-p.meses} meses antes`:'con el plan';
   countTo($('#kCuotas'),cuotasMes(),money);
-  const ing=ingresoMes();$('#kCuotasS').textContent=ing?Math.round(cuotasMes()/ing*100)+'% de tu ingreso':'Falta el ingreso';
-  $('#kLibre').textContent=p.fin?mlabel(p.fin):'—';$('#kLibreS').textContent=p.fin?`en ${p.meses} meses con el plan`:'';
+  const ing=ingresoMes();$('#kCuotasS').textContent=ing?Math.round(cuotasMes()/ing*100)+'% de tu ingreso':'Falta tu ingreso';
+  countTo($('#kInt'),activas().reduce((a,d)=>a+burnOf(d),0),money);$('#kIntS').textContent='plata que se pierde';
+  const ext=+S.pres?.abonoExtra||0;countTo($('#kExtra'),ext,money);$('#kExtraS').textContent=ext?'cada mes, a capital':'aún no abonas extra';
   const nx=dueItems().find(x=>!x.pagado);
+  $('#kNextS').textContent=nx?`Próximo pago · ${nx.dias===0?'hoy':nx.dias===1?'mañana':'en '+nx.dias+' días'}`:'Próximo pago';
   $('#kNext').textContent=nx?nx.d.nombre:'Todo al día';
-  $('#kNextS').textContent=nx?`${nx.dias===0?'Hoy':nx.dias===1?'Mañana':'En '+nx.dias+' días'} · ${money(nx.d.cuota)}`:'';
+  $('#kNextV').textContent=nx?money(nx.d.cuota):'';
+  $('#kNextD').textContent=nx?`${nx.d.entidad?nx.d.entidad+' · ':''}vence el ${nx.due.getDate()} ${MESES[nx.due.getMonth()]}`:'No tienes cuotas pendientes este mes.';
 }
 
 /* ---------- Sueldo ---------- */
@@ -341,8 +343,11 @@ $('#wNext').addEventListener('click',async()=>{
   const gastos=DEF_GASTOS.map((g,i)=>({nombre:g,valor:+$('#wg'+i).value||0}));
   await db.doc('config/presupuesto').set({...(S.pres||{}),nombre:$('#wNombre').value.trim(),ingresoQuincenal:Math.round((+$('#wIngreso').value||0)/2),gastos,abonoExtra:S.pres?.abonoExtra||0,estrategia:S.pres?.estrategia||'avalancha',colchonMeta:S.pres?.colchonMeta||500000,colchonActual:S.pres?.colchonActual||0,listo:true});
   for(const d of wDebts){await db.collection('deudas').add({...d,creado:todayISO()})}
-  gastosDraft=null;$('#wiz').hidden=true;saveHist();toast('¡Listo! Este es tu plan')});
-function maybeWiz(){if(S.ready.d&&S.ready.c&&!S.deudas.length&&!S.pres?.listo&&$('#wiz').hidden&&!maybeWiz.shown){maybeWiz.shown=true;openWiz()}}
+  gastosDraft=null;saveHist();
+  // js/interfaz.js entrega el plan con la transición circular; sin ella, se cierra el asistente sin más.
+  if(window.PLD&&PLD.entregarPlan)PLD.entregarPlan();else{$('#wiz').hidden=true;toast('¡Listo! Este es tu plan')}});
+/* Primera visita (sin datos): se muestra la portada; el asistente se abre desde su botón. */
+function maybeWiz(){if(!(S.ready.d&&S.ready.c))return;document.body.classList.toggle('modo-portada',!S.deudas.length&&!S.pres?.listo)}
 /* respaldo */
 const marcarRespaldo=()=>{try{localStorage.setItem('pld-respaldo:'+PERFILES.clave(),todayISO())}catch(e){}document.dispatchEvent(new CustomEvent('pld:respaldo'))};
 const respaldoBlob=()=>new Blob([localStorage.getItem(PERFILES.clave())||'{}'],{type:'application/json'});
@@ -439,7 +444,7 @@ function labelTable(t){const hs=[...t.querySelectorAll('thead th')].map(th=>th.t
 
 /* Punto de enlace para js/interfaz.js y js/funciones.js: leen el estado y agregan sus propios render. */
 const PLD={S,$,$$,money,short,mlabel,esc,todayISO,col,slotOf,plan,base,activas,totalSaldo,totalIni,cuotasMes,gastosMes,ingresoMes,burnOf,dueItems,toast,showTab,countTo,reduce,
-  db:()=>db,canWrite:()=>canWrite,respaldoBlob,respaldoNombre,marcarRespaldo,hooks:[],renderAll:()=>renderAll()};
+  db:()=>db,canWrite:()=>canWrite,respaldoBlob,respaldoNombre,marcarRespaldo,openWiz:()=>openWiz(),hooks:[],renderAll:()=>renderAll()};
 window.PLD=PLD;
 
 function renderAll(){if(!(S.ready.d&&S.ready.c))return;invalidate();
