@@ -1,11 +1,11 @@
 /* Plan Libre de Deudas: service worker (funcionamiento sin internet).
    IMPORTANTE: cada vez que publiques un cambio en cualquier archivo, sube VERSION (ej. 'v3' -> 'v4').
-   AsÃ­ los celulares que ya instalaron la app descargan la versiÃ³n nueva. */
+   Así los celulares que ya instalaron la app descargan la versión nueva. */
 const VERSION='v4';
 const CACHE='pld-'+VERSION;
 const RUNTIME='pld-externos';
 
-/* Archivos propios de la app. Si agregas uno nuevo, sÃºmalo aquÃ­. */
+/* Archivos propios de la app. Si agregas uno nuevo, súmalo aquí. */
 const APP=[
   './',
   'index.html',
@@ -24,10 +24,10 @@ const APP=[
   'iconos/apple-touch-icon.png'
 ];
 
-/* Recursos de otros sitios que la app usa (fuente y librerÃ­a de Excel). */
+/* Recursos de otros sitios que la app usa (fuente y librería de Excel). */
 const EXTERNOS=['fonts.googleapis.com','fonts.gstatic.com','cdnjs.cloudflare.com'];
 
-// Al instalar se piden los archivos al servidor saltando la cachÃ© del navegador,
+// Al instalar se piden los archivos al servidor saltando la caché del navegador,
 // para no guardar una mezcla de archivos viejos y nuevos.
 self.addEventListener('install',e=>{
   e.waitUntil(caches.open(CACHE).then(c=>c.addAll(APP.map(u=>new Request(u,{cache:'reload'})))).then(()=>self.skipWaiting()));
@@ -44,8 +44,8 @@ self.addEventListener('fetch',e=>{
   if(req.method!=='GET')return;
   const url=new URL(req.url);
 
-  // Archivos de la app y la pÃ¡gina: primero internet (siempre la versiÃ³n mÃ¡s nueva);
-  // sin conexiÃ³n, la copia guardada.
+  // Archivos de la app y la página: primero internet (siempre la versión más nueva);
+  // sin conexión, la copia guardada.
   if(url.origin===self.location.origin){
     e.respondWith(fetch(req,{cache:'no-cache'}).then(r=>{
       if(r.ok){const copy=r.clone();caches.open(CACHE).then(c=>c.put(req.mode==='navigate'?'index.html':req,copy))}
@@ -54,7 +54,7 @@ self.addEventListener('fetch',e=>{
     return;
   }
 
-  // Fuente y librerÃ­a de Excel: se guardan la primera vez que cargan.
+  // Fuente y librería de Excel: se guardan la primera vez que cargan.
   if(EXTERNOS.includes(url.hostname)){
     e.respondWith(caches.open(RUNTIME).then(c=>c.match(req).then(hit=>hit||fetch(req).then(r=>{if(r.ok||r.type==='opaque')c.put(req,r.clone());return r}))));
   }
