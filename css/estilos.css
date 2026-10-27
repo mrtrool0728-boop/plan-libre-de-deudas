@@ -583,3 +583,5 @@ body:not(.entrando) #app{z-index:auto}
 @keyframes flota{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
 @keyframes titila{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.7)}}
 @media (prefers-reduced-motion:reduce){.pt-t1,.pt-t2,.pt-brillo,.pt-punto{animation:none!important}.pt-arte{transform:none!important}}
+/* Durante la transición a tu plan la portada sigue visible mientras se acerca */
+body.entrando #portada{display:block}

@@ -1,7 +1,7 @@
 /* Plan Libre de Deudas: service worker (funcionamiento sin internet).
    IMPORTANTE: cada vez que publiques un cambio en cualquier archivo, sube VERSION (ej. 'v3' -> 'v4').
    Así los celulares que ya instalaron la app descargan la versión nueva. */
-const VERSION='v7';
+const VERSION='v8';
 const CACHE='pld-'+VERSION;
 const RUNTIME='pld-externos';
 
