@@ -1,7 +1,7 @@
 /* Plan Libre de Deudas: service worker (funcionamiento sin internet).
-   IMPORTANTE: cada vez que publiques un cambio en cualquier archivo, sube VERSION (ej. 'v2' -> 'v3').
+   IMPORTANTE: cada vez que publiques un cambio en cualquier archivo, sube VERSION (ej. 'v3' -> 'v4').
    Así los celulares que ya instalaron la app descargan la versión nueva. */
-const VERSION='v2';
+const VERSION='v3';
 const CACHE='pld-'+VERSION;
 const RUNTIME='pld-externos';
 
@@ -27,8 +27,10 @@ const APP=[
 /* Recursos de otros sitios que la app usa (fuente y librería de Excel). */
 const EXTERNOS=['fonts.googleapis.com','fonts.gstatic.com','cdnjs.cloudflare.com'];
 
+// Al instalar se piden los archivos al servidor saltando la caché del navegador,
+// para no guardar una mezcla de archivos viejos y nuevos.
 self.addEventListener('install',e=>{
-  e.waitUntil(caches.open(CACHE).then(c=>c.addAll(APP)).then(()=>self.skipWaiting()));
+  e.waitUntil(caches.open(CACHE).then(c=>c.addAll(APP.map(u=>new Request(u,{cache:'reload'})))).then(()=>self.skipWaiting()));
 });
 
 self.addEventListener('activate',e=>{
@@ -42,19 +44,13 @@ self.addEventListener('fetch',e=>{
   if(req.method!=='GET')return;
   const url=new URL(req.url);
 
-  // La página: primero internet (para traer cambios); sin conexión, la copia guardada.
-  if(req.mode==='navigate'){
-    e.respondWith(fetch(req).then(r=>{const copy=r.clone();caches.open(CACHE).then(c=>c.put('index.html',copy));return r})
-      .catch(()=>caches.match('index.html',{ignoreSearch:true})));
-    return;
-  }
-
-  // Archivos de la app: la copia guardada al instante y se actualiza en segundo plano.
+  // Archivos de la app y la página: primero internet (siempre la versión más nueva);
+  // sin conexión, la copia guardada.
   if(url.origin===self.location.origin){
-    e.respondWith(caches.open(CACHE).then(c=>c.match(req,{ignoreSearch:true}).then(hit=>{
-      const net=fetch(req).then(r=>{if(r.ok)c.put(req,r.clone());return r}).catch(()=>hit);
-      return hit||net;
-    })));
+    e.respondWith(fetch(req,{cache:'no-cache'}).then(r=>{
+      if(r.ok){const copy=r.clone();caches.open(CACHE).then(c=>c.put(req.mode==='navigate'?'index.html':req,copy))}
+      return r;
+    }).catch(()=>caches.match(req.mode==='navigate'?'index.html':req,{ignoreSearch:true})));
     return;
   }
 

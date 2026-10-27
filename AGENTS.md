@@ -14,7 +14,8 @@ Una app web gratuita (PWA instalable) para organizar deudas personales en Colomb
 
 | Archivo | Qué contiene |
 |---|---|
-| `index.html` | Estructura de las pantallas, íconos SVG (`<symbol>`) y ventanas (asistente, correo, empezar de cero, instalar). |
+| `index.html` | Estructura de las pantallas, íconos SVG (`<symbol>`) y ventanas (asistente, empezar de cero, menú, perfiles). Portada: barra `.appbar` y resumen en `.casillas` numeradas. |
+| `PRODUCT.md` + `.impeccable/surfaces/index-html.md` | Para quién es la app y el contrato de diseño "Formulario oficial" (verde institucional, filetes de 1 px, esquinas de 4 px, Public Sans, cifras en casillas). Respétalo: nada de degradados, brillos, sombras decorativas ni píldoras. |
 | `css/estilos.css` | Todo el diseño. Colores en variables de `:root`, con modo oscuro. |
 | `js/datos.js` | Datos que se actualizan a mano: tasa de usura (`USURA`), tasas para compra de cartera (`OFERTAS`), gastos del asistente y pasos iniciales. |
 | `js/calculos.js` | Cálculos financieros puros: `rm()` (tasa EA a mensual) y `simulate()` (plan mes a mes). |
@@ -22,7 +23,7 @@ Una app web gratuita (PWA instalable) para organizar deudas personales en Colomb
 | `js/app.js` | Pantallas e interacción. Usa lo de `datos.js` y `calculos.js`. Expone `window.PLD` (estado, ayudantes y `PLD.hooks`). |
 | `js/interfaz.js` | Experiencia de uso: tema, menú ⋯, barra inferior y "Más" en celular, hojas inferiores, deslizar entre pestañas, vibración, celebración. |
 | `js/funciones.js` | Recordatorios (calendario .ics y avisos), simulador "¿y si…?", prima, historial real, logros y racha, perfiles, respaldo. Cada bloque agrega su `render` a `PLD.hooks`. |
-| `js/pwa.js` | Registro del service worker y botón "Instalar app". |
+| `js/pwa.js` | Registro del service worker; recarga una vez cuando llega una versión nueva. (El botón "Instalar app" y el envío por correo se quitaron por ahora.) |
 | `sw.js` | Service worker: guarda la app para usarla sin internet. |
 | `manifest.webmanifest` + `iconos/` | Nombre, colores e íconos de la app instalada. |
 | `respaldo/` | Copias anteriores. No se publican como parte de la app; no las edites. |

@@ -1,6 +1,6 @@
 # Plan Libre de Deudas
 
-Herramienta web gratuita para organizar tus deudas y armar un plan de pagos. Muestra en qué mes quedas libre y cuánto te ahorras en intereses. Se puede instalar como app en el celular o el computador y funciona sin internet.
+Herramienta web gratuita para organizar tus deudas y armar un plan de pagos. Muestra en qué mes quedas libre y cuánto te ahorras en intereses. Funciona sin internet una vez cargada.
 
 ## Qué hace
 
@@ -13,12 +13,15 @@ Herramienta web gratuita para organizar tus deudas y armar un plan de pagos. Mue
 - Recordatorios de pago en tu calendario y avisos al abrir la app.
 - Historial real de cómo baja tu deuda, racha de meses e insignias.
 - Varios perfiles en el mismo dispositivo y tema claro u oscuro.
-- Envía el resumen a tu correo, exporta a Excel y guarda un respaldo (descarga o Drive/compartir).
+- Exporta a Excel y guarda un respaldo (descarga o Drive/compartir).
 
 ## Instalarla como app
 
-- **Android o computador (Chrome, Edge):** botón **Instalar app** arriba en la página.
-- **iPhone o iPad:** en Safari, **Compartir → Agregar a pantalla de inicio**. La página lo explica con el mismo botón.
+Por ahora la página no muestra un botón de instalar. Se puede agregar desde el menú del navegador ("Agregar a pantalla de inicio" o "Instalar aplicación").
+
+## Diseño
+
+Dirección visual "Formulario oficial": verde institucional, filetes finos, cifras en casillas numeradas. Producto en [PRODUCT.md](PRODUCT.md); contrato de diseño en `.impeccable/surfaces/index-html.md`.
 
 ## Privacidad
 

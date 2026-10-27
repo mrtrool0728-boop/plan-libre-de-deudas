@@ -79,7 +79,7 @@ function renderHero(){
     {n:'Libre de deudas',d:p.fin?'Meta: '+mlabel(p.fin):'¡Logrado!',ok:t<=0,ic:'#i-flag'}];
   const nowI=st.findIndex(x=>!x.ok);
   $('#stageNow').textContent=nowI<0?'Programa completo':`Vas en la etapa ${nowI+1} de 5`;
-  $('#stages').innerHTML=st.map((x,i)=>`<li class="${x.ok?'done':''} ${i===nowI?'now':''}"><div class="tile ${x.ok?'green':i===nowI?'':'gray'}"><svg class="i" aria-hidden="true"><use href="${x.ok?'#i-tick':x.ic}"/></svg></div><span class="st">Etapa ${i+1}${x.ok?' · lista':i===nowI?' · en curso':''}</span><span class="sn">${x.n}</span><span class="sd">${esc(x.d)}</span></li>`).join('');
+  $('#stages').innerHTML=st.map((x,i)=>`<li class="${x.ok?'done':''} ${i===nowI?'now':''}"><div class="tile ${x.ok?'green':i===nowI?'':'gray'}"><svg class="i" aria-hidden="true"><use href="${x.ok?'#i-tick':x.ic}"/></svg></div><span class="sn">${i+1}. ${x.n}${x.ok?' <span class="st">lista</span>':i===nowI?' <span class="st">en curso</span>':''}</span><span class="sd">${esc(x.d)}</span></li>`).join('');
 }
 
 /* ---------- KPIs ---------- */
@@ -89,7 +89,6 @@ function renderKpis(){
   $('#kTotalS').textContent=`${activas().length} deudas activas · empezaste con ${money(ini)}`;
   $('#kAvance').textContent=Math.round(av*100)+'%';
   $('#kBar').style.width=(av*100).toFixed(1)+'%';
-  $('#kRing').style.strokeDashoffset=(389.56*(1-av)).toFixed(2);
   const p=plan(),b=base();
   $('#kSave').textContent=p.meses&&b.meses>p.meses?`y terminas ${b.meses-p.meses} meses antes`:'con el plan';
   countTo($('#kCuotas'),cuotasMes(),money);
@@ -230,7 +229,7 @@ function renderPlan(){
     return `<li style="--c:${col(d.ref)}"><span class="dot"><svg class="i" aria-hidden="true"><use href="#i-tick"/></svg></span><div class="when">${mlabel(d.fin)} · en ${m} ${m===1?'mes':'meses'}</div><div class="what">${esc(d.nombre)}</div><div class="small muted">Tasa ${d.tasa.toFixed(2)}% EA</div></li>`}).join('')+
     `<li class="final"><span class="dot"><svg class="i" aria-hidden="true"><use href="#i-flag"/></svg></span><div class="when">${mlabel(p.fin)}</div><div class="what">Libre de deudas</div><div class="small muted">Todo lo que pagabas en cuotas queda para ti.</div></li>`:'<li class="empty">No hay deudas activas.</li>';
   const ah=Math.max(0,b.interes-p.interes),mm=Math.max(0,b.meses-p.meses);
-  $('#compare').innerHTML=`<div><div class="label">Te ahorras en intereses</div><div class="bigsave">${money(ah)}</div><div class="small muted">${mm>0?`y terminas ${mm} meses antes`:'frente a pagar solo los mínimos'}</div></div>
+  $('#compare').innerHTML=`<div><div class="bigsave">${money(ah)}</div><div class="small muted">menos en intereses ${mm>0?`y terminas ${mm} meses antes`:'frente a pagar solo los mínimos'}</div></div>
     <div class="hbars">
       <div class="hb"><span class="nm">Con el plan</span><div class="tr"><i style="width:${(p.interes/Math.max(b.interes,p.interes,1)*100).toFixed(1)}%;background:var(--s1)"></i></div><span class="num">${short(p.interes)}</span></div>
       <div class="hb"><span class="nm">Solo mínimos</span><div class="tr"><i style="width:${(b.interes/Math.max(b.interes,p.interes,1)*100).toFixed(1)}%;background:var(--s2)"></i></div><span class="num">${short(b.interes)}</span></div>
@@ -370,9 +369,8 @@ function renderCartera(){
   $('#cvCorte').textContent='Tasas de referencia · '+OFERTAS.corte;
   const rows=ofertasTodas().filter(o=>tipo==='todos'||o.tipo===tipo).map(o=>evalOffer(o,n)).sort((a,b)=>(b.ahorro||-1e12)-(a.ahorro||-1e12));
   const best=rows.find(x=>x.monto>0&&x.ahorro>0);
-  $('#cvBest').innerHTML=!activas().length?'<p class="empty">Agrega tus deudas para comparar.</p>':best?`<div class="savebanner" style="padding:22px 24px">
-     <div style="display:flex;flex-direction:column;gap:8px;min-width:0"><span class="label">La opción más económica para ti</span>
-     <span class="huge" style="font-size:clamp(1.6rem,4vw,2.4rem)">${esc(best.o.e)} · ${best.o.t.toFixed(2)}% EA</span>
+  $('#cvBest').innerHTML=!activas().length?'<p class="empty">Agrega tus deudas para comparar.</p>':best?`<div class="savebanner">
+     <div style="display:flex;flex-direction:column;gap:8px;min-width:0"><h3 class="best">La más económica para ti: ${esc(best.o.e)} · ${best.o.t.toFixed(2)}% EA</h3>
      <p>Trasladas ${money(best.monto)} (${best.cand.map(d=>esc(d.nombre)).join(', ')}). Tu cuota de esas deudas pasa de <b>${money(best.cuotaA)}</b> a <b>${money(best.cuotaN)}</b> al mes y te ahorras unos <b>${money(best.ahorro)}</b> en intereses y cobros.</p></div>
      ${best.o.url?`<a class="btn big" href="${best.o.url}" target="_blank" rel="noopener">Ver ${esc(best.o.e)}</a>`:''}</div>`
     :'<p class="callout">Con estas tasas ninguna compra de cartera mejora tu situación: tus deudas ya están por debajo de lo que ofrecen las entidades. Sigue con el plan de abonos.</p>';
@@ -386,33 +384,9 @@ $('#cvPlazo').addEventListener('change',renderCartera);$('#cvTipo').addEventList
 $('#ofAdd').addEventListener('click',async()=>{const e=$('#ofE').value.trim(),t=+$('#ofT').value;if(!e||!(t>0)){toast('Escribe la entidad y la tasa');return}
   const of=(S.pres?.ofertas||[]).concat([{e,t}]);try{await db.doc('config/presupuesto').update({ofertas:of});$('#ofE').value='';$('#ofT').value='';toast('Oferta agregada')}catch(err){toast('No se pudo guardar')}});
 
-/* ---------- Enviar por correo ---------- */
-function resumenTexto(){
-  const p=plan(),b=base(),n=+$('#cvPlazo')?.value||36;
-  const best=ofertasTodas().map(o=>evalOffer(o,n)).filter(x=>x.monto>0&&x.ahorro>0).sort((a,c)=>c.ahorro-a.ahorro)[0];
-  const nm=(S.pres?.nombre||'').trim();const L=[];
-  L.push('PLAN LIBRE DE DEUDAS'+(nm?' - '+nm:'')+' ('+todayISO()+')','');
-  L.push('Deuda total: '+money(totalSaldo())+' en '+activas().length+' deudas.');
-  L.push('Cuotas al mes: '+money(cuotasMes())+(ingresoMes()?' ('+Math.round(cuotasMes()/ingresoMes()*100)+'% del ingreso)':'')+'.');
-  if(p.fin)L.push('Libre de deudas: '+mlabel(p.fin)+' ('+p.meses+' meses). Ahorro en intereses con el plan: '+money(Math.max(0,b.interes-p.interes))+'.');
-  L.push('','ORDEN DE PAGO (primero la tasa más alta):');
-  activas().sort((a,c)=>c.tasaEA-a.tasaEA).forEach((d,i)=>{const f=p.payoff.find(x=>x.ref.id===d.id)?.fin;L.push((i+1)+'. '+d.nombre+' - saldo '+money(d.saldo)+' - '+(+d.tasaEA).toFixed(2)+'% EA - cuota '+money(d.cuota)+(f?' - termina '+mlabel(f):''))});
-  if(best){L.push('','COMPRA DE CARTERA MÁS ECONÓMICA:',best.o.e+' ('+best.o.t.toFixed(2)+'% EA, '+n+' meses): trasladas '+money(best.monto)+', cuota '+money(best.cuotaN)+'/mes, ahorro aprox. '+money(best.ahorro)+'.')}
-  const nx=dueItems().filter(x=>!x.pagado).slice(0,4);if(nx.length){L.push('','PRÓXIMOS PAGOS:');nx.forEach(x=>L.push('- '+x.due.getDate()+' '+MESES[x.due.getMonth()]+': '+x.d.nombre+' '+money(x.d.cuota)))}
-  L.push('','Herramienta educativa. No es asesoría financiera.');
-  return L.join('\n');
-}
-function openMail(){$('#mailTo').value=S.pres?.correo||'';$('#mailBody').value=resumenTexto();updMail();$('#mailM').hidden=false;setTimeout(()=>$('#mailTo').focus(),50)}
-function updMail(){const to=$('#mailTo').value.trim(),su='Mi plan para salir de deudas',bd=$('#mailBody').value,E=encodeURIComponent;
-  $('#mailGo').href='mailto:'+E(to)+'?subject='+E(su)+'&body='+E(bd);
-  $('#mailGmail').href='https://mail.google.com/mail/?view=cm&fs=1&to='+E(to)+'&su='+E(su)+'&body='+E(bd);
-  $('#mailOutlook').href='https://outlook.live.com/mail/0/deeplink/compose?to='+E(to)+'&subject='+E(su)+'&body='+E(bd)}
-$('#mailTo').addEventListener('input',updMail);
-['#mailGo','#mailGmail','#mailOutlook'].forEach(sel=>$(sel).addEventListener('click',async e=>{const to=$('#mailTo').value.trim();if(!to){e.preventDefault();toast('Escribe tu correo primero');$('#mailTo').focus();return}if(to!==S.pres?.correo){try{await db.doc('config/presupuesto').update({correo:to})}catch(err){}}}));
-$('#mailCopy').addEventListener('click',async()=>{try{await navigator.clipboard.writeText($('#mailBody').value);toast('Resumen copiado')}catch(e){$('#mailBody').select();toast('Selecciónalo y cópialo')}});
+/* ---------- Ventanas: cerrar con su botón o con Escape ---------- */
 $$('[data-close]').forEach(b=>b.addEventListener('click',()=>$('#'+b.dataset.close).hidden=true));
 document.addEventListener('keydown',e=>{if(e.key==='Escape')$$('.wiz').forEach(w=>{if(w.id!=='wiz')w.hidden=true})});
-$('#btnMail').addEventListener('click',openMail);
 
 /* ---------- Empezar de cero ---------- */
 $('#btnReset').addEventListener('click',()=>$('#resetM').hidden=false);
